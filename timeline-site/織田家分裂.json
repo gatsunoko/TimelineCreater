@@ -1,0 +1,152 @@
+{
+  "title": "織田氏の分裂",
+  "items": [
+    {
+      "id": "tl-mpqenvlh-q1var",
+      "isApprox": true,
+      "western": {
+        "year": 1400,
+        "month": null,
+        "day": null,
+        "display": "1400年頃"
+      },
+      "japanese": {
+        "era": "応永",
+        "year": 7,
+        "month": null,
+        "isLeap": false,
+        "day": null,
+        "display": "応永7年頃"
+      },
+      "event": "斯波義重が尾張守護に補任され、家臣の藤原将広＝織田伊勢入道常松が尾張へ入る",
+      "note": "",
+      "sortKey": "1400-01-27"
+    },
+    {
+      "id": "tl-mpqeql0s-9s818",
+      "isApprox": false,
+      "western": {
+        "year": 1452,
+        "month": null,
+        "day": null,
+        "display": "1452年"
+      },
+      "japanese": {
+        "era": "享徳",
+        "year": 1,
+        "month": null,
+        "isLeap": false,
+        "day": null,
+        "display": "享徳元年"
+      },
+      "event": "斯波義健死去後、斯波家で家督争い勃発、織田家中もどちらにつくかで派閥に割れる",
+      "note": "織田家の分裂の土台ができる。尾張の織田家でも、どちらにつくかで派閥が分かれる",
+      "sortKey": "1452-01-22"
+    },
+    {
+      "id": "tl-mpqpksjj-w54aq",
+      "isApprox": false,
+      "western": {
+        "year": 1467,
+        "month": null,
+        "day": null,
+        "display": "1467年"
+      },
+      "japanese": {
+        "era": "応仁",
+        "year": 1,
+        "month": null,
+        "isLeap": false,
+        "day": null,
+        "display": "応仁元年"
+      },
+      "event": "応仁の乱、主家の斯波家も分裂",
+      "note": "岩倉織田氏は西軍、清州織田氏は東軍（幕府軍）。この後、清州織田氏が幕府から任命された守護代になる",
+      "sortKey": "1467-02-05"
+    },
+    {
+      "id": "tl-mpqevfxt-r7nxn",
+      "isApprox": false,
+      "western": {
+        "year": 1475,
+        "month": null,
+        "day": null,
+        "display": "1475年"
+      },
+      "japanese": {
+        "era": "文明",
+        "year": 7,
+        "month": null,
+        "isLeap": false,
+        "day": null,
+        "display": "文明7年"
+      },
+      "event": "斯波義廉・織田敏広（岩倉織田家）が尾張へ下国",
+      "note": "織田敏広は岩倉織田家の祖とされる。ここから尾張で織田家内の争いが加速",
+      "sortKey": "1475-02-06"
+    },
+    {
+      "id": "tl-mpqezobz-57r44",
+      "isApprox": false,
+      "western": {
+        "year": 1478,
+        "month": null,
+        "day": null,
+        "display": "1478年"
+      },
+      "japanese": {
+        "era": "文明",
+        "year": 10,
+        "month": null,
+        "isLeap": false,
+        "day": null,
+        "display": "文明10年"
+      },
+      "event": "幕府が織田敏定（清州織田家）を守護代に任じる",
+      "note": "幕府による敏定にの守護代任命で、清州織田家の正統性が補強される。幕府は敏定に「凶徒退治」を命じて、清州と岩倉の織田家が戦う",
+      "sortKey": "1478-02-03"
+    },
+    {
+      "id": "tl-mpqf0tfv-5ntrz",
+      "isApprox": false,
+      "western": {
+        "year": 1479,
+        "month": null,
+        "day": null,
+        "display": "1479年"
+      },
+      "japanese": {
+        "era": "文明",
+        "year": 11,
+        "month": null,
+        "isLeap": false,
+        "day": null,
+        "display": "文明11年"
+      },
+      "event": "清洲と岩倉の織田家が和睦。尾張分割支配が成立",
+      "note": "",
+      "sortKey": "1479-01-23"
+    },
+    {
+      "id": "tl-mpqf2wwv-ba1q3",
+      "isApprox": false,
+      "western": {
+        "year": 1495,
+        "month": null,
+        "day": null,
+        "display": "1495年"
+      },
+      "japanese": {
+        "era": "明応",
+        "year": 4,
+        "month": null,
+        "isLeap": false,
+        "day": null,
+        "display": "明応4年"
+      },
+      "event": "外的要因で清州と岩倉が再度敵対",
+      "note": "船田合戦で両家が別陣営となり、敏定は陣中で病没",
+      "sortKey": "1495-01-27"
+    }
+  ]
+}

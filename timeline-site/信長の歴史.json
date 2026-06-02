@@ -1,0 +1,551 @@
+{
+  "title": "織田信長の人生",
+  "items": [
+    {
+      "id": "tl-mpnjp71g-hoaa2",
+      "western": {
+        "year": 1534,
+        "month": 6,
+        "day": 23,
+        "display": "1534年6月23日"
+      },
+      "japanese": {
+        "era": "天文",
+        "year": 3,
+        "month": 5,
+        "isLeap": false,
+        "day": 12,
+        "display": "天文3年5月12日"
+      },
+      "event": "信長誕生",
+      "note": "尾張国の織田弾正忠家に生まれる。幼名は吉法師。『信長公記』首は、尾張が上下の勢力に分かれ、勝幡・那古野・清洲・岩倉を軸に諸織田家が並立していた政治環境から叙述を始める。",
+      "sortKey": "1534-06-23",
+      "isApprox": false
+    },
+    {
+      "id": "tl-mpnjs76z-tu0od",
+      "western": {
+        "year": 1546,
+        "month": null,
+        "day": null,
+        "display": "1546年"
+      },
+      "japanese": {
+        "era": "天文",
+        "year": 15,
+        "month": null,
+        "isLeap": false,
+        "day": null,
+        "display": "天文15年"
+      },
+      "event": "吉法師、元服して織田三郎信長となる(12歳、数え年で13歳)",
+      "note": "十三歳で古渡城において元服し、織田三郎信長と称する。平手政秀ら重臣が付き、尾張の有力後継者として公的に登場した。",
+      "sortKey": "1546-02-01",
+      "isApprox": false
+    },
+    {
+      "id": "tl-mpnjt3kr-jxd7n",
+      "western": {
+        "year": 1548,
+        "month": null,
+        "day": null,
+        "display": "1548年"
+      },
+      "japanese": {
+        "era": "天文",
+        "year": 17,
+        "month": null,
+        "isLeap": false,
+        "day": null,
+        "display": "天文17年"
+      },
+      "event": "斎藤道三の娘と婚姻",
+      "note": "美濃の斎藤道三と織田信秀の講和により、信長は道三の娘を妻に迎える。美濃との関係は敵対と同盟が交差する重要な外交軸となった。",
+      "sortKey": "1548-02-10",
+      "isApprox": false
+    },
+    {
+      "id": "tl-mpnuzdx3-tq5z5",
+      "isApprox": false,
+      "western": {
+        "year": 1552,
+        "month": 3,
+        "day": 27,
+        "display": "1552年3月27日"
+      },
+      "japanese": {
+        "era": "天文",
+        "year": 21,
+        "month": 3,
+        "isLeap": false,
+        "day": 3,
+        "display": "天文21年3月3日"
+      },
+      "event": "信長の父・信秀、病没",
+      "note": "",
+      "sortKey": "1552-03-27"
+    },
+    {
+      "id": "tl-mpnjxnim-0imhm",
+      "western": {
+        "year": 1553,
+        "month": null,
+        "day": null,
+        "display": "1553年"
+      },
+      "japanese": {
+        "era": "天文",
+        "year": 22,
+        "month": null,
+        "isLeap": false,
+        "day": null,
+        "display": "天文22年"
+      },
+      "event": "信長、斎藤道三と会見(19歳)",
+      "note": "信長は斎藤道三と会見する。粗野に見える姿から一転して正装で現れ、道三に力量を認めさせた逸話として知られる。\n\nこの会見は、信長が単なる逸脱者ではなく、場面に応じて政治的演出を使い分ける人物として描かれる重要場面である。",
+      "sortKey": "1553-01-14",
+      "isApprox": false
+    },
+    {
+      "id": "tl-mpnuou4j-frwjn",
+      "isApprox": false,
+      "western": {
+        "year": 1553,
+        "month": 5,
+        "day": 29,
+        "display": "1553年5月29日"
+      },
+      "japanese": {
+        "era": "天文",
+        "year": 22,
+        "month": 4,
+        "isLeap": false,
+        "day": 17,
+        "display": "天文22年4月17日"
+      },
+      "event": "三河との国境に近い鳴海方面で反乱が起こる",
+      "note": "信長が出陣し赤塚で合戦",
+      "sortKey": "1553-05-29"
+    },
+    {
+      "id": "tl-mpnuro05-06e6i",
+      "isApprox": true,
+      "western": {
+        "year": 1553,
+        "month": 9,
+        "day": 22,
+        "display": "1553年9月22日頃"
+      },
+      "japanese": {
+        "era": "天文",
+        "year": 22,
+        "month": 8,
+        "isLeap": false,
+        "day": 15,
+        "display": "天文22年8月15日頃"
+      },
+      "event": "清洲織田家が信長の織田弾正忠家に対して攻撃を開始",
+      "note": "清洲織田家（織田大和守家）が信長配下の松葉城・深田城を奪うが、信長がすぐに応戦して城を奪い返す。戦は信長側の勝利",
+      "sortKey": "1553-09-22"
+    },
+    {
+      "id": "tl-mpnut763-wxg4c",
+      "isApprox": false,
+      "western": {
+        "year": 1554,
+        "month": 8,
+        "day": 10,
+        "display": "1554年8月10日"
+      },
+      "japanese": {
+        "era": "天文",
+        "year": 23,
+        "month": 7,
+        "isLeap": false,
+        "day": 12,
+        "display": "天文23年7月12日"
+      },
+      "event": "清洲織田家が尾張守護・斯波義統を暗殺",
+      "note": "尾張守護が信長に通じたため、守護と信長が手を組むことを危惧した清州織田家が守護を暗殺したと考えられる。斯波義統の息子・斯波義銀は逃げることに成功し、信長が義銀を保護する。これにより清州織田家は守護を殺した反逆者となり、信長には本家である清州織田家と戦う大義名分ができた。",
+      "sortKey": "1554-08-10"
+    },
+    {
+      "id": "tl-mpnuxw7i-7jap4",
+      "isApprox": false,
+      "western": {
+        "year": 1555,
+        "month": 5,
+        "day": 10,
+        "display": "1555年5月10日"
+      },
+      "japanese": {
+        "era": "天文",
+        "year": 24,
+        "month": 4,
+        "isLeap": false,
+        "day": 20,
+        "display": "天文24年4月20日"
+      },
+      "event": "清洲織田家を倒す。信長が尾張下四郡の支配者になる",
+      "note": "信長の叔父・織田信光が清洲城乗っ取りを単独で成功させ、清州織田家当主・織田信友を切腹させる",
+      "sortKey": "1555-05-10"
+    },
+    {
+      "id": "tl-mpnp3avz-j9ze0",
+      "isApprox": false,
+      "western": {
+        "year": 1556,
+        "month": 5,
+        "day": 28,
+        "display": "1556年5月28日"
+      },
+      "japanese": {
+        "era": "弘治",
+        "year": 2,
+        "month": 4,
+        "isLeap": false,
+        "day": 20,
+        "display": "弘治2年4月20日"
+      },
+      "event": "斎藤道三、息子に殺される",
+      "note": "信長の後ろ盾だった斎藤道三を殺した斎藤義龍が美濃を治めたことで、織田家には、後ろ盾を失い、美濃と敵対する信長より弟・信勝を当主にという動きが出ることになる",
+      "sortKey": "1556-05-28"
+    },
+    {
+      "id": "tl-mpnpj90d-s7ibe",
+      "western": {
+        "year": 1556,
+        "month": 9,
+        "day": 27,
+        "display": "1556年9月27日"
+      },
+      "japanese": {
+        "era": "弘治",
+        "year": 2,
+        "month": 8,
+        "isLeap": false,
+        "day": 24,
+        "display": "弘治2年8月24日"
+      },
+      "event": "稲生合戦、弟信勝派を破る",
+      "note": "林秀貞兄弟・柴田勝家らが信長の弟・信勝を擁して信長に敵対する。信長は稲生でこれを破り、家中の主導権を固めた。",
+      "sortKey": "1556-09-27",
+      "isApprox": false
+    },
+    {
+      "id": "tl-mpnpkovn-86eyd",
+      "western": {
+        "year": 1557,
+        "month": 11,
+        "day": 22,
+        "display": "1557年11月22日"
+      },
+      "japanese": {
+        "era": "弘治",
+        "year": 3,
+        "month": 11,
+        "isLeap": false,
+        "day": 2,
+        "display": "弘治3年11月2日"
+      },
+      "event": "弟・信勝を粛清",
+      "note": "弟信勝が再び謀反を企てると、信長は清洲城におびき出し暗殺",
+      "sortKey": "1557-11-22",
+      "isApprox": false
+    },
+    {
+      "id": "tl-mpq6mogi-35p7p",
+      "isApprox": true,
+      "western": {
+        "year": 1558,
+        "month": 4,
+        "day": null,
+        "display": "1558年4月頃"
+      },
+      "japanese": {
+        "era": "永禄",
+        "year": 1,
+        "month": 4,
+        "isLeap": false,
+        "day": null,
+        "display": "永禄元年4月頃"
+      },
+      "event": "岩倉織田家が信長領地の正眼寺に砦を築こうとする",
+      "note": "岩倉織田家が清洲城攻撃のための砦を築こうとして信長と武力衝突",
+      "sortKey": "1558-04-19"
+    },
+    {
+      "id": "tl-mpnpsxeq-o6nlq",
+      "western": {
+        "year": 1558,
+        "month": 8,
+        "day": 25,
+        "display": "1558年8月25日"
+      },
+      "japanese": {
+        "era": "永禄",
+        "year": 1,
+        "month": 7,
+        "isLeap": false,
+        "day": 12,
+        "display": "永禄元年7月12日"
+      },
+      "event": "浮野合戦、岩倉織田家に勝利",
+      "note": "信長は尾張の南半分、下四郡を支配していた、北半分の上四郡を支配する岩倉織田家と戦い勝利した",
+      "sortKey": "1558-08-25",
+      "isApprox": false
+    },
+    {
+      "id": "tl-mpnpvca8-xiwfr",
+      "isApprox": true,
+      "western": {
+        "year": 1558,
+        "month": 11,
+        "day": null,
+        "display": "1558年11月頃"
+      },
+      "japanese": {
+        "era": "永禄",
+        "year": 1,
+        "month": 10,
+        "isLeap": false,
+        "day": null,
+        "display": "永禄元年10月頃"
+      },
+      "event": "岩倉落城、尾張の国をほぼ掌握（25歳）",
+      "note": "尾張の北半分を支配していた岩倉織田家の本拠地岩倉城を落城させ、尾張の国をほぼ掌握する。日付は確定していない。岩倉市などの説明では、もっと後の出来事と語られるが、それだと永禄2年2月2日に信長が上洛し将軍に謁見してることとの整合性がとれないので、この時期と思われる。",
+      "sortKey": "1558-11-10"
+    },
+    {
+      "id": "tl-mpnqnp3z-2q23o",
+      "western": {
+        "year": 1559,
+        "month": 3,
+        "day": 10,
+        "display": "1559年3月10日"
+      },
+      "japanese": {
+        "era": "永禄",
+        "year": 2,
+        "month": 2,
+        "isLeap": false,
+        "day": 2,
+        "display": "永禄2年2月2日"
+      },
+      "event": "信長はじめての上洛、将軍・足利義輝に謁見",
+      "note": "供の者80人ほどを連れて上洛し将軍に謁見、この上洛の際信長は美濃の暗殺者に命を狙われている",
+      "sortKey": "1559-03-10",
+      "isApprox": false
+    },
+    {
+      "id": "tl-mpnpzgo0-1y05g",
+      "isApprox": true,
+      "western": {
+        "year": 1560,
+        "month": 4,
+        "day": null,
+        "display": "1560年4月頃"
+      },
+      "japanese": {
+        "era": "永禄",
+        "year": 3,
+        "month": 4,
+        "isLeap": false,
+        "day": null,
+        "display": "永禄3年4月頃"
+      },
+      "event": "今川の進軍に備え城・砦を築く",
+      "note": "今川方の鳴海城を押さえるため、信長は丹下・善照寺・中島などに砦を築き、包囲線を整えた。桶狭間は突発的な奇襲だけでなく、鳴海周辺の付城戦を背景にしていた。正確な月日は不明、だいたいこの頃",
+      "sortKey": "1560-04-26"
+    },
+    {
+      "id": "tl-mpnq0ill-qup6z",
+      "western": {
+        "year": 1560,
+        "month": 6,
+        "day": 12,
+        "display": "1560年6月12日"
+      },
+      "japanese": {
+        "era": "永禄",
+        "year": 3,
+        "month": 5,
+        "isLeap": false,
+        "day": 19,
+        "display": "永禄3年5月19日"
+      },
+      "event": "桶狭間の戦い、今川義元を討つ",
+      "note": "今川義元が大軍で尾張へ侵攻する。信長は清洲から出撃し、桶狭間で義元本陣を急襲して討ち取った。\nこの勝利により尾張は今川の圧力から脱し、松平元康が岡崎へ戻る契機も生まれた。信長は東海政治の中心人物へ浮上する。",
+      "sortKey": "1560-06-12",
+      "isApprox": false
+    },
+    {
+      "id": "tl-mpp2prk8-5lty1",
+      "isApprox": true,
+      "western": {
+        "year": 1561,
+        "month": 1,
+        "day": null,
+        "display": "1561年1月頃"
+      },
+      "japanese": {
+        "era": "永禄",
+        "year": 4,
+        "month": 1,
+        "isLeap": false,
+        "day": null,
+        "display": "永禄4年1月頃"
+      },
+      "event": "犬山城主・織田信清との関係悪化",
+      "note": "岩倉織田家を倒すまでは協力関係にあった信長の従兄弟の織田信清だが、旧岩倉領地の分配を巡り信長と対立し敵対",
+      "sortKey": "1561-01-16"
+    },
+    {
+      "id": "tl-mpnwgbkg-8h1b0",
+      "isApprox": true,
+      "western": {
+        "year": 1561,
+        "month": 5,
+        "day": 23,
+        "display": "1561年5月23日頃"
+      },
+      "japanese": {
+        "era": "永禄",
+        "year": 4,
+        "month": 4,
+        "isLeap": false,
+        "day": 10,
+        "display": "永禄4年4月10日頃"
+      },
+      "event": "信長が三河の梅が坪を攻める",
+      "note": "梅が坪は現在の豊田市。桶狭間の戦い以降、家康が治めていた",
+      "sortKey": "1561-05-23"
+    },
+    {
+      "id": "tl-mpnulju5-p9x6p",
+      "isApprox": true,
+      "western": {
+        "year": 1561,
+        "month": 6,
+        "day": null,
+        "display": "1561年6月頃"
+      },
+      "japanese": {
+        "era": "永禄",
+        "year": 4,
+        "month": 5,
+        "isLeap": false,
+        "day": null,
+        "display": "永禄4年5月頃"
+      },
+      "event": "尾張守護・斯波義銀を追放",
+      "note": "斯波義銀が、石橋・吉良と協力して、駿河の今川に尾張の国を攻めさせる手引きをしたため、追放。斯波義銀は織田から尾張支配の実権を奪いたかった為、今川が尾張を攻める手伝いをした。",
+      "sortKey": "1561-06-13"
+    },
+    {
+      "id": "tl-mpnwq8s4-k4v8n",
+      "isApprox": false,
+      "western": {
+        "year": 1561,
+        "month": 6,
+        "day": 25,
+        "display": "1561年6月25日"
+      },
+      "japanese": {
+        "era": "永禄",
+        "year": 4,
+        "month": 5,
+        "isLeap": false,
+        "day": 13,
+        "display": "永禄4年5月13日"
+      },
+      "event": "森辺の合戦（西美濃へ侵攻）",
+      "note": "信長の軍は木曽川・飛騨川を越え侵攻。斎藤義龍配下の日比野清実が大将として迎え撃つ。信長は日比野の兵170ほどを討ち取る。\n前田利家は、以前、信長のお気に入りを喧嘩で殺して追放されていたが、この戦で美濃の「首取り足立」と呼ばれる有名な武士を討ち取り、追放を許されて織田家に復帰する",
+      "sortKey": "1561-06-25"
+    },
+    {
+      "id": "tl-mpnwybqm-vsua8",
+      "isApprox": false,
+      "western": {
+        "year": 1561,
+        "month": 7,
+        "day": 5,
+        "display": "1561年7月5日"
+      },
+      "japanese": {
+        "era": "永禄",
+        "year": 4,
+        "month": 5,
+        "isLeap": false,
+        "day": 23,
+        "display": "永禄4年5月23日"
+      },
+      "event": "十四条の合戦",
+      "note": "信長が墨俣に砦を築いて在陣していたところ、美濃の斎藤の本拠地、井口から大軍がやってきて戦になる",
+      "sortKey": "1561-07-05"
+    },
+    {
+      "id": "tl-mpnx2v1a-y3f9a",
+      "isApprox": true,
+      "western": {
+        "year": 1561,
+        "month": 8,
+        "day": 6,
+        "display": "1561年8月6日頃"
+      },
+      "japanese": {
+        "era": "永禄",
+        "year": 4,
+        "month": 6,
+        "isLeap": false,
+        "day": 25,
+        "display": "永禄4年6月25日頃"
+      },
+      "event": "小口城（於久地）を攻撃",
+      "note": "小口城は織田信清配下。ここで織田家では知らない者のいない優秀な信長の側近、岩室長門が討ち死にし、信長はとても悲しんだ",
+      "sortKey": "1561-08-06"
+    },
+    {
+      "id": "tl-mpp36z59-rgaf8",
+      "isApprox": true,
+      "western": {
+        "year": 1564,
+        "month": 9,
+        "day": null,
+        "display": "1564年9月頃"
+      },
+      "japanese": {
+        "era": "永禄",
+        "year": 7,
+        "month": 8,
+        "isLeap": false,
+        "day": null,
+        "display": "永禄7年8月頃"
+      },
+      "event": "犬山城の周囲を包囲し裸城にする",
+      "note": "犬山城の家老・和田新介・中嶋豊後守が丹羽長秀を通じて内応し、犬山を裸城にして包囲",
+      "sortKey": "1564-09-06"
+    },
+    {
+      "id": "tl-mpnkzukx-bltch",
+      "western": {
+        "year": 1582,
+        "month": 6,
+        "day": 21,
+        "display": "1582年6月21日"
+      },
+      "japanese": {
+        "era": "天正",
+        "year": 10,
+        "month": 6,
+        "isLeap": false,
+        "day": 2,
+        "display": "天正10年6月2日"
+      },
+      "event": "本能寺の変",
+      "note": "",
+      "sortKey": "1582-06-21",
+      "isApprox": false
+    }
+  ]
+}

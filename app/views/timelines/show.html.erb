@@ -1,0 +1,64 @@
+<% content_for :title, @timeline.title %>
+<% content_for :page_title, @timeline.title %>
+<% content_for :header_label, "年表" %>
+<% content_for :footer_text, @timeline.title %>
+
+<section class="section" id="timeline-section">
+  <h2 class="section-title">年表</h2>
+
+  <% if @timeline.birth_year.present? %>
+    <div id="display-mode-container" style="display: flex; align-items: center; gap: var(--space-sm); margin-bottom: var(--space-md); background: rgba(139, 69, 19, 0.03); padding: 8px 12px; border-radius: var(--radius-md); border: 1px solid var(--color-border-light); flex-wrap: wrap;">
+      <span style="font-size: var(--font-size-sm); font-weight: bold; color: var(--color-ink-light);">表示切り替え</span>
+      <div class="btn-group">
+        <%= link_to "日付表示", timeline_path(@timeline, q: @query, mode: "date"), class: mode_button_class(@display_mode, "date") %>
+        <%= link_to "数え年", timeline_path(@timeline, q: @query, mode: "age-count"), class: mode_button_class(@display_mode, "age-count") %>
+        <%= link_to "満年齢", timeline_path(@timeline, q: @query, mode: "age-full"), class: mode_button_class(@display_mode, "age-full") %>
+      </div>
+    </div>
+  <% end %>
+
+  <%= form_with url: timeline_path(@timeline), method: :get, class: "search-bar" do |form| %>
+    <%= hidden_field_tag :mode, @display_mode %>
+    <%= form.text_field :q, value: @query, placeholder: "事項・備考・元号で検索…" %>
+    <%= form.submit "検索", class: "btn btn-secondary" %>
+    <%= link_to "クリア", timeline_path(@timeline, mode: @display_mode), class: "btn btn-secondary" %>
+  <% end %>
+
+  <div class="table-wrapper">
+    <table class="timeline-table" id="timeline-table">
+      <thead>
+        <tr>
+          <th class="col-date">日付</th>
+          <th class="col-event">事項</th>
+        </tr>
+      </thead>
+      <tbody id="timeline-tbody">
+        <% @events.each do |event| %>
+          <tr>
+            <td class="col-date">
+              <div class="date-western"><%= age_display(@timeline, event, @display_mode) %></div>
+              <% if @display_mode == "date" && event.japanese_display.present? %>
+                <div class="date-japanese"><%= event.japanese_display %></div>
+              <% else %>
+                <div class="date-japanese"><%= event.western_display %></div>
+              <% end %>
+            </td>
+            <td class="col-event">
+              <%= event.event %>
+              <% if event.note.present? %>
+                <% note_id = "note-#{event.id}" %>
+                <button type="button" class="note-toggle" data-note-toggle="<%= note_id %>">備考を表示</button>
+                <span class="note-text" id="<%= note_id %>"><%= simple_format(event.note) %></span>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <% if @events.empty? %>
+    <div class="empty-message" id="empty-message">年表データがありません。</div>
+  <% end %>
+  <div class="table-count" id="table-count"><%= @events.size %> / <%= @timeline.timeline_events.count %> 件</div>
+</section>

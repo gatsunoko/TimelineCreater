@@ -1,0 +1,7 @@
+<% content_for :page_title, "#{@timeline.title} - 項目追加" %>
+<% content_for :header_label, "ADD" %>
+
+<section class="section">
+  <h2 class="section-title">年表項目を追加</h2>
+  <%= render "form", timeline: @timeline, event: @event %>
+</section>

@@ -1,0 +1,69 @@
+<%= form_with model: timeline, data: { timeline_settings_form: true } do |form| %>
+  <% if timeline.errors.any? %>
+    <div class="flash alert"><%= timeline.errors.full_messages.join(" / ") %></div>
+  <% end %>
+
+  <div class="form-grid">
+    <div class="form-full">
+      <div class="form-field">
+        <%= form.label :title, "年表のタイトル" %>
+        <%= form.text_field :title, placeholder: "年表のタイトルを入力…" %>
+      </div>
+    </div>
+
+    <div class="form-full">
+      <div class="form-group-title">
+        主役の誕生日 <span class="optional-label">任意</span>
+      </div>
+
+      <div class="birth-input-grid">
+        <div>
+          <div class="form-group-title form-group-title-small">西暦</div>
+          <div class="form-row">
+            <div class="form-field">
+              <%= form.label :birth_year, "年" %>
+              <%= form.number_field :birth_year, min: 1, max: 9999, placeholder: "例: 1534" %>
+            </div>
+            <div class="form-field">
+              <%= form.label :birth_month, "月" %>
+              <%= form.number_field :birth_month, min: 1, max: 12, placeholder: "月" %>
+            </div>
+            <div class="form-field">
+              <%= form.label :birth_day, "日" %>
+              <%= form.number_field :birth_day, min: 1, max: 31, placeholder: "日" %>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="form-group-title form-group-title-small">和暦</div>
+          <div class="form-row">
+            <div class="form-field">
+              <label for="timeline_birth_japanese_era">元号</label>
+              <select id="timeline_birth_japanese_era">
+                <option value="">選択…</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label for="timeline_birth_japanese_year">年</label>
+              <input type="number" id="timeline_birth_japanese_year" min="1" max="99" placeholder="年">
+            </div>
+            <div class="form-field">
+              <label for="timeline_birth_japanese_month">月</label>
+              <input type="number" id="timeline_birth_japanese_month" min="1" max="12" placeholder="月">
+            </div>
+            <div class="form-field">
+              <label for="timeline_birth_japanese_day">日</label>
+              <input type="number" id="timeline_birth_japanese_day" min="1" max="31" placeholder="日">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <%= link_to "戻る", timeline.persisted? ? timeline_path(timeline) : timelines_path, class: "btn btn-secondary" %>
+      <%= form.submit "保存", class: "btn btn-primary" %>
+    </div>
+  </div>
+<% end %>

@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="日本史年表作成ツール。西暦・和暦の自動変換機能付き。年表データの作成・編集・エクスポートが可能です。">
+  <title>日本史年表 — 編集ツール</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ========== ヘッダー ========== -->
+  <header class="site-header">
+    <h1 id="site-title">日本史年表 — 編集ツール</h1>
+    <div class="header-decoration">
+      <span>年表作成ツール</span>
+    </div>
+  </header>
+
+  <div class="container">
+
+    <!-- ========== 年表設定セクション ========== -->
+    <div class="settings-card" style="margin-bottom: var(--space-lg); padding: var(--space-md) var(--space-lg); background: var(--color-bg-paper); border: 1px solid var(--color-border); border-radius: var(--radius-lg); display: flex; flex-direction: column; gap: var(--space-md); box-shadow: 0 2px 8px var(--color-shadow);">
+      <div style="display: flex; align-items: center; justify-content: space-between; gap: var(--space-md); flex-wrap: wrap; width: 100%;">
+        <div style="display: flex; align-items: center; gap: var(--space-sm); flex: 1; min-width: 250px;">
+          <label for="title-input" style="font-weight: bold; font-family: 'Noto Serif JP', serif; color: var(--color-ink); white-space: nowrap;">🏷️ 年表のタイトル:</label>
+          <input type="text" id="title-input" value="日本史年表" placeholder="年表のタイトルを入力…" style="flex: 1; padding: 6px 12px; border: 1px solid var(--color-input-border); border-radius: var(--radius-sm); font-family: inherit; font-size: 0.95rem; background: var(--color-input-bg); color: var(--color-ink);">
+        </div>
+        <div>
+          <a href="index.html" class="btn btn-secondary">📄 公開ページを表示</a>
+        </div>
+      </div>
+      
+      <!-- 誕生日設定 (新規追加) -->
+      <div style="display: flex; align-items: center; gap: var(--space-md); flex-wrap: wrap; padding-top: var(--space-sm); border-top: 1px solid var(--color-border-light); width: 100%;">
+        <span style="font-weight: bold; font-family: 'Noto Serif JP', serif; color: var(--color-ink); white-space: nowrap;">🎂 主役の誕生日 (西暦):</span>
+        <div style="display: flex; align-items: center; gap: var(--space-xs);">
+          <input type="number" id="birth-year" placeholder="年 (西暦)" style="width: 100px; padding: 4px 8px; border: 1px solid var(--color-input-border); border-radius: var(--radius-sm); background: var(--color-input-bg); color: var(--color-ink);" min="1" max="9999">
+          <span style="font-size: var(--font-size-sm); color: var(--color-ink-light);">年</span>
+          <input type="number" id="birth-month" placeholder="月" style="width: 60px; padding: 4px 8px; border: 1px solid var(--color-input-border); border-radius: var(--radius-sm); background: var(--color-input-bg); color: var(--color-ink);" min="1" max="12">
+          <span style="font-size: var(--font-size-sm); color: var(--color-ink-light);">月</span>
+          <input type="number" id="birth-day" placeholder="日" style="width: 60px; padding: 4px 8px; border: 1px solid var(--color-input-border); border-radius: var(--radius-sm); background: var(--color-input-bg); color: var(--color-ink);" min="1" max="31">
+          <span style="font-size: var(--font-size-sm); color: var(--color-ink-light);">日</span>
+        </div>
+        <span style="font-size: var(--font-size-xs); color: var(--color-ink-muted);">※登録すると年表テーブルで「年齢表示（満 / 数え）」へのトグル切り替えが可能になります。</span>
+      </div>
+    </div>
+
+
+    <div class="storage-info">
+      <strong>📝 ブラウザ内保存について：</strong>
+      編集中のデータは localStorage に自動保存されます。ページを閉じても復元可能です。
+      ただし、これは公開サイトの <code>timeline-data.json</code> を直接更新するものではありません。
+      公開データを更新するには、JSONエクスポートで書き出したデータで <code>timeline-data.json</code> を差し替えてください。
+    </div>
+
+    <!-- ========== 年表表示セクション ========== -->
+    <section class="section" id="timeline-section">
+      <h2 class="section-title">年表</h2>
+
+      <!-- 表示切り替えトグル (誕生日が設定されている場合のみ表示) -->
+      <div id="display-mode-container" style="display: none; align-items: center; gap: var(--space-sm); margin-bottom: var(--space-md); background: rgba(139, 69, 19, 0.03); padding: 8px 12px; border-radius: var(--radius-md); border: 1px solid var(--color-border-light); flex-wrap: wrap;">
+        <span style="font-size: var(--font-size-sm); font-weight: bold; color: var(--color-ink-light); display: flex; align-items: center; gap: 4px;">👀 表示切り替え:</span>
+        <div class="btn-group">
+          <button type="button" class="btn btn-sm active" id="btn-mode-date">📅 日付表示</button>
+          <button type="button" class="btn btn-sm" id="btn-mode-age-count">数え年</button>
+          <button type="button" class="btn btn-sm" id="btn-mode-age-full">満年齢</button>
+        </div>
+      </div>
+
+      <!-- 検索バー -->
+      <div class="search-bar">
+        <input type="text" id="search-input" placeholder="事項・備考・元号で検索…">
+        <button class="btn btn-secondary" id="search-btn">検索</button>
+        <button class="btn btn-secondary" id="search-clear-btn">クリア</button>
+      </div>
+
+      <!-- テーブル -->
+      <div class="table-wrapper">
+        <table class="timeline-table" id="timeline-table">
+          <thead>
+            <tr>
+              <th class="col-date">日付 (西暦 / 和暦)</th>
+              <th class="col-event">事項</th>
+              <th class="col-actions">操作</th>
+            </tr>
+          </thead>
+          <tbody id="timeline-tbody">
+            <!-- JavaScript で動的に生成 -->
+          </tbody>
+        </table>
+      </div>
+      <div class="empty-message" id="empty-message" style="display:none;">
+        年表データがありません。下のフォームから追加してください。
+      </div>
+      <div class="table-count" id="table-count"></div>
+    </section>
+
+    <!-- ========== 年表登録フォーム ========== -->
+    <section class="section" id="form-section">
+      <div class="accordion-header open" id="form-accordion-header">
+        <h2 class="section-title" style="margin-bottom:0;border-bottom:none;padding-bottom:0;">年表登録フォーム</h2>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="accordion-body open" id="form-accordion-body">
+
+        <!-- 編集中インジケーター -->
+        <div class="editing-indicator" id="editing-indicator" style="margin-top: var(--space-md);">
+          ✏️ <span id="editing-label">編集中</span>
+          <button class="btn btn-sm btn-secondary" id="cancel-edit-btn">キャンセル</button>
+        </div>
+
+        <form id="timeline-form" style="margin-top: var(--space-lg);">
+          <div class="form-grid">
+
+            <!-- 西暦入力 -->
+            <div>
+              <div class="form-group-title">西暦</div>
+              <div class="form-row">
+                <div class="form-field">
+                  <label for="western-year">西暦年 <span style="color:var(--color-danger)">*</span></label>
+                  <input type="number" id="western-year" placeholder="例：1582" min="1" max="9999">
+                </div>
+                <div class="form-field">
+                  <label for="western-month">月</label>
+                  <input type="number" id="western-month" placeholder="月" min="1" max="12">
+                </div>
+                <div class="form-field">
+                  <label for="western-day">日</label>
+                  <input type="number" id="western-day" placeholder="日" min="1" max="31">
+                </div>
+              </div>
+            </div>
+
+            <!-- 和暦入力 -->
+            <div>
+              <div class="form-group-title">和暦</div>
+              <div class="form-row">
+                <div class="form-field">
+                  <label for="japanese-era">元号</label>
+                  <select id="japanese-era">
+                    <option value="">選択…</option>
+                    <!-- era-data.js から動的に生成 -->
+                  </select>
+                </div>
+                <div class="form-field">
+                  <label for="japanese-year">年</label>
+                  <input type="number" id="japanese-year" placeholder="年" min="1" max="99">
+                </div>
+                <div class="form-field">
+                  <label for="japanese-month">月</label>
+                  <input type="number" id="japanese-month" placeholder="月" min="1" max="12">
+                </div>
+                <div class="form-field tooltip-container" style="display: flex; align-items: center; justify-content: center; padding-top: 1.5rem; position: relative;">
+                  <input type="checkbox" id="japanese-leap" tabindex="-1" style="width: auto; margin-right: 4px;">
+                  <label for="japanese-leap" class="tooltip-label" style="margin-bottom: 0; cursor: pointer; white-space: nowrap; border-bottom: 1px dashed var(--color-ink-muted);">閏</label>
+                  <span class="tooltip-text">旧暦（太陰太陽暦）で、季節のズレを調整するために挿入される臨時の「閏月」を指定します（例：閏6月）。通常の月にはチェックを外します。</span>
+                </div>
+                <div class="form-field">
+                  <label for="japanese-day">日</label>
+                  <input type="number" id="japanese-day" placeholder="日" min="1" max="31">
+                </div>
+              </div>
+            </div>
+
+            <!-- オプション -->
+            <div class="form-full" style="margin-top: calc(-1 * var(--space-sm)); margin-bottom: var(--space-sm);">
+              <div style="display: inline-flex; align-items: center; background: rgba(139, 69, 19, 0.04); padding: 8px 16px; border-radius: var(--radius-md); border: 1px solid var(--color-border-light);">
+                <input type="checkbox" id="is-approximate" style="width: auto; margin-right: 6px; cursor: pointer;">
+                <label for="is-approximate" style="margin-bottom: 0; cursor: pointer; font-size: var(--font-size-sm); font-weight: 500; color: var(--color-ink-light); display: flex; align-items: center; gap: 4px;">
+                  🕒 日付を「〜頃」と表記する（月日が不確定な出来事など）
+                </label>
+              </div>
+            </div>
+
+            <!-- 事項 -->
+            <div class="form-full">
+              <div class="form-group-title">事項</div>
+              <div class="form-field">
+                <label for="event-text">出来事 <span style="color:var(--color-danger)">*</span></label>
+                <input type="text" id="event-text" placeholder="例：本能寺の変">
+              </div>
+            </div>
+
+            <!-- 備考 -->
+            <div class="form-full">
+              <div class="form-group-title">備考</div>
+              <div class="form-field">
+                <label for="note-text">備考（任意）</label>
+                <textarea id="note-text" placeholder="補足情報があれば入力…"></textarea>
+              </div>
+            </div>
+
+            <!-- ボタン -->
+            <div class="form-actions">
+              <button type="button" class="btn btn-secondary" id="form-clear-btn">クリア</button>
+              <button type="submit" class="btn btn-primary" id="form-submit-btn">追加</button>
+            </div>
+
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- ========== データインポート ========== -->
+    <section class="section" id="import-section">
+      <div class="accordion-header" id="import-accordion-header">
+        <h2 class="section-title" style="margin-bottom:0;border-bottom:none;padding-bottom:0;">データインポート</h2>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="accordion-body" id="import-accordion-body">
+        <div style="margin-top: var(--space-lg); display: flex; flex-direction: column; gap: var(--space-lg);">
+
+          <!-- JSON インポート -->
+          <div style="display: flex; flex-direction: column; gap: var(--space-sm);">
+            <div style="font-weight: bold; font-size: 0.95rem; color: var(--color-text-dark); display: flex; align-items: center; gap: 6px;">📄 JSONインポート</div>
+            <p style="font-size: var(--font-size-sm); color: var(--color-ink-light); line-height: 1.5; margin: 0;">
+              PC上の年表データファイル（JSON形式）を指定してインポートします。
+            </p>
+            <div style="display: flex; align-items: center; gap: var(--space-md); flex-wrap: wrap;">
+              <input type="file" id="import-file-input" accept=".json" style="padding: 6px 12px; border: 1px solid var(--color-border); border-radius: var(--radius-md); background: var(--color-input-bg); font-family: inherit; font-size: 0.9rem; cursor: pointer; flex: 1; min-width: 200px;">
+              <button class="btn btn-primary" id="import-btn">JSONインポートを実行</button>
+            </div>
+          </div>
+
+          <hr style="border: none; border-top: 1px solid var(--color-border); margin: 0;">
+
+          <!-- CSV インポート -->
+          <div style="display: flex; flex-direction: column; gap: var(--space-sm);">
+            <div style="font-weight: bold; font-size: 0.95rem; color: var(--color-text-dark); display: flex; align-items: center; gap: 6px;">📊 CSVインポート</div>
+            <p style="font-size: var(--font-size-sm); color: var(--color-ink-light); line-height: 1.5; margin: 0;">
+              CSV形式（カンマ区切り）のファイルをインポートします。<br>
+              列順: <code>西暦年, 西暦月, 西暦日, 元号, 和暦年, 和暦月, 閏月, 和暦日, 〜頃, 事項, 備考</code><br>
+              1行目がヘッダー行の場合は自動的にスキップされます。
+            </p>
+            <div style="display: flex; align-items: center; gap: var(--space-md); flex-wrap: wrap;">
+              <input type="file" id="import-csv-file-input" accept=".csv,.txt" style="padding: 6px 12px; border: 1px solid var(--color-border); border-radius: var(--radius-md); background: var(--color-input-bg); font-family: inherit; font-size: 0.9rem; cursor: pointer; flex: 1; min-width: 200px;">
+              <button class="btn btn-primary" id="import-csv-btn">CSVインポートを実行</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== データエクスポート ========== -->
+    <section class="section" id="export-section">
+      <div class="accordion-header" id="export-accordion-header">
+        <h2 class="section-title" style="margin-bottom:0;border-bottom:none;padding-bottom:0;">データエクスポート</h2>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="accordion-body" id="export-accordion-body">
+        <div style="margin-top: var(--space-lg); display: flex; flex-direction: column; gap: var(--space-md);">
+          <p style="font-size: var(--font-size-sm); color: var(--color-ink-light); line-height: 1.5;">
+            現在の年表データをエクスポート（ダウンロード）します。通常は <strong>timeline-data.json</strong> をダウンロードして公開サーバー上のファイルと差し替えてください。<br>
+            ローカル環境（Webサーバーを通さないダブルクリック起動など）でCORSエラーを回避して動作させている場合は、<strong>timeline-data.js</strong> をダウンロードして差し替えてください。
+          </p>
+          <div class="json-actions" style="display: flex; gap: var(--space-md); flex-wrap: wrap;">
+            <button class="btn btn-primary" id="export-json-btn">📥 timeline-data.json をダウンロード (推奨)</button>
+            <button class="btn btn-secondary" id="export-js-btn">📥 timeline-data.js をダウンロード (CORS回避用)</button>
+            <button class="btn btn-secondary" id="export-csv-btn">📊 CSVをダウンロード</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- トースト通知コンテナ -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- フッター -->
+  <footer class="site-footer" id="site-footer-text">
+    日本史年表作成ツール — 編集ページ
+  </footer>
+
+  <!-- スクリプト読み込み -->
+  <script src="era-data.js"></script>
+  <script src="qreki-data.js"></script>
+  <script src="qreki.js"></script>
+  <script src="timeline-data.js"></script>
+  <script src="app.js"></script>
+
+</body>
+</html>

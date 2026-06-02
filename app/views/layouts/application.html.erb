@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <title><%= content_for(:title) || "年表作成サイト" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_include_tag "era-data", defer: true %>
+    <%= javascript_include_tag "qreki-data", defer: true %>
+    <%= javascript_include_tag "qreki", defer: true %>
+    <%= javascript_include_tag "timeline_form", defer: true %>
+  </head>
+
+  <body>
+    <nav class="app-nav">
+      <%= link_to "年表作成サイト", root_path %>
+      <div class="nav-actions">
+        <% if user_signed_in? %>
+          <span><%= current_user.email %></span>
+          <%= button_to "ログアウト", destroy_user_session_path, method: :delete, class: "btn btn-sm btn-secondary" %>
+        <% else %>
+          <%= link_to "ログイン", new_user_session_path %>
+          <%= link_to "新規登録", new_user_registration_path %>
+        <% end %>
+      </div>
+    </nav>
+
+    <header class="site-header">
+      <h1 id="site-title"><%= content_for(:page_title) || "日本史年表" %></h1>
+      <div class="header-decoration">
+        <span><%= content_for(:header_label) || "年表" %></span>
+      </div>
+    </header>
+
+    <main class="container">
+      <% if notice.present? %>
+        <div class="flash notice"><%= notice %></div>
+      <% end %>
+      <% if alert.present? %>
+        <div class="flash alert"><%= alert %></div>
+      <% end %>
+      <%= yield %>
+    </main>
+
+    <footer class="site-footer" id="site-footer-text">
+      <%= content_for(:footer_text) || "年表作成サイト" %>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,122 @@
+<% content_for :title, "#{@timeline.title} - 編集" %>
+<% content_for :page_title, "#{@timeline.title} - 編集" %>
+<% content_for :header_label, "年表作成ツール" %>
+<% content_for :footer_text, "#{@timeline.title}作成ツール - 編集ページ" %>
+
+<div class="settings-card" style="margin-bottom: var(--space-lg); padding: var(--space-md) var(--space-lg); background: var(--color-bg-paper); border: 1px solid var(--color-border); border-radius: var(--radius-lg); display: flex; align-items: center; justify-content: space-between; gap: var(--space-md); flex-wrap: wrap; box-shadow: 0 2px 8px var(--color-shadow);">
+  <div>
+    <strong><%= @timeline.title %></strong>
+    <% if @timeline.birth_year.present? %>
+      <span class="date-japanese"> / 誕生日: <%= [@timeline.birth_year, @timeline.birth_month, @timeline.birth_day].compact.join("/") %></span>
+    <% end %>
+  </div>
+  <div class="nav-actions">
+    <%= link_to "閲覧ページを表示", timeline_path(@timeline), class: "btn btn-secondary" %>
+    <%= link_to "設定", edit_timeline_path(@timeline), class: "btn btn-secondary" %>
+  </div>
+</div>
+
+<section class="section" id="timeline-section">
+  <h2 class="section-title">年表</h2>
+
+  <% if @timeline.birth_year.present? %>
+    <div id="display-mode-container" style="display: flex; align-items: center; gap: var(--space-sm); margin-bottom: var(--space-md); background: rgba(139, 69, 19, 0.03); padding: 8px 12px; border-radius: var(--radius-md); border: 1px solid var(--color-border-light); flex-wrap: wrap;">
+      <span style="font-size: var(--font-size-sm); font-weight: bold; color: var(--color-ink-light);">表示切り替え</span>
+      <div class="btn-group">
+        <%= link_to "日付表示", manage_timeline_path(@timeline, q: @query, mode: "date"), class: mode_button_class(@display_mode, "date") %>
+        <%= link_to "数え年", manage_timeline_path(@timeline, q: @query, mode: "age-count"), class: mode_button_class(@display_mode, "age-count") %>
+        <%= link_to "満年齢", manage_timeline_path(@timeline, q: @query, mode: "age-full"), class: mode_button_class(@display_mode, "age-full") %>
+      </div>
+    </div>
+  <% end %>
+
+  <%= form_with url: manage_timeline_path(@timeline), method: :get, class: "search-bar" do |form| %>
+    <%= hidden_field_tag :mode, @display_mode %>
+    <%= form.text_field :q, value: @query, placeholder: "事項・備考・元号で検索…" %>
+    <%= form.submit "検索", class: "btn btn-secondary" %>
+    <%= link_to "クリア", manage_timeline_path(@timeline, mode: @display_mode), class: "btn btn-secondary" %>
+  <% end %>
+
+  <div class="table-wrapper">
+    <table class="timeline-table" id="timeline-table">
+      <thead>
+        <tr>
+          <th class="col-date">日付</th>
+          <th class="col-event">事項</th>
+          <th class="col-actions">操作</th>
+        </tr>
+      </thead>
+      <tbody id="timeline-tbody">
+        <% @events.each do |event| %>
+          <tr>
+            <td class="col-date">
+              <div class="date-western"><%= age_display(@timeline, event, @display_mode) %></div>
+              <% if @display_mode == "date" && event.japanese_display.present? %>
+                <div class="date-japanese"><%= event.japanese_display %></div>
+              <% else %>
+                <div class="date-japanese"><%= event.western_display %></div>
+              <% end %>
+            </td>
+            <td class="col-event">
+              <%= event.event %>
+              <% if event.note.present? %>
+                <% note_id = "manage-note-#{event.id}" %>
+                <button type="button" class="note-toggle" data-note-toggle="<%= note_id %>">備考を表示</button>
+                <span class="note-text" id="<%= note_id %>"><%= simple_format(event.note) %></span>
+              <% end %>
+            </td>
+            <td class="col-actions">
+              <div class="action-buttons">
+                <%= link_to "編集", edit_timeline_timeline_event_path(@timeline, event), class: "btn btn-sm btn-secondary" %>
+                <%= button_to "削除", timeline_timeline_event_path(@timeline, event), method: :delete, class: "btn btn-sm btn-danger", form: { data: { turbo_confirm: "本当に削除していいですか？" } } %>
+              </div>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <% if @events.empty? %>
+    <div class="empty-message" id="empty-message">年表データがありません。下のフォームから追加してください。</div>
+  <% end %>
+  <div class="table-count" id="table-count"><%= @events.size %> / <%= @timeline.timeline_events.count %> 件</div>
+</section>
+
+<section class="section" id="form-section">
+  <h2 class="section-title">年表登録フォーム</h2>
+  <%= render "timeline_events/form", timeline: @timeline, event: @event %>
+</section>
+
+<section class="section" id="import-section">
+  <h2 class="section-title">データインポート</h2>
+  <div class="form-grid">
+    <div>
+      <div class="form-group-title">JSONインポート</div>
+      <%= form_with url: import_json_timeline_path(@timeline), multipart: true do |form| %>
+        <div class="form-row">
+          <%= form.file_field :file, accept: ".json" %>
+          <%= form.submit "JSONインポートを実行", class: "btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
+    <div>
+      <div class="form-group-title">CSVインポート</div>
+      <%= form_with url: import_csv_timeline_path(@timeline), multipart: true do |form| %>
+        <div class="form-row">
+          <%= form.file_field :file, accept: ".csv,.txt" %>
+          <%= form.submit "CSVインポートを実行", class: "btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="export-section">
+  <h2 class="section-title">データエクスポート</h2>
+  <div class="json-actions">
+    <%= link_to "timeline-data.json をダウンロード", export_json_timeline_path(@timeline), class: "btn btn-primary" %>
+    <%= link_to "timeline-data.js をダウンロード", export_js_timeline_path(@timeline), class: "btn btn-secondary" %>
+    <%= link_to "CSVをダウンロード", export_csv_timeline_path(@timeline), class: "btn btn-secondary" %>
+  </div>
+</section>

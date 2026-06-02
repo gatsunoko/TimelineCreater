@@ -1,0 +1,81 @@
+<%= form_with model: [timeline, event], id: "timeline-form" do |form| %>
+  <% if event.errors.any? %>
+    <div class="flash alert"><%= event.errors.full_messages.join(" / ") %></div>
+  <% end %>
+
+  <div class="form-grid">
+    <div>
+      <div class="form-group-title">西暦</div>
+      <div class="form-row">
+        <div class="form-field">
+          <%= form.label :western_year, "西暦年" %>
+          <%= form.number_field :western_year, min: 1, max: 9999, required: true, placeholder: "例: 1582" %>
+        </div>
+        <div class="form-field">
+          <%= form.label :western_month, "月" %>
+          <%= form.number_field :western_month, min: 1, max: 12, placeholder: "月" %>
+        </div>
+        <div class="form-field">
+          <%= form.label :western_day, "日" %>
+          <%= form.number_field :western_day, min: 1, max: 31, placeholder: "日" %>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="form-group-title">和暦</div>
+      <div class="form-row">
+        <div class="form-field">
+          <%= form.label :japanese_era, "元号" %>
+          <%= form.select :japanese_era, [], { include_blank: "選択…" }, data: { current: event.japanese_era.to_s } %>
+        </div>
+        <div class="form-field">
+          <%= form.label :japanese_year, "年" %>
+          <%= form.number_field :japanese_year, min: 1, max: 99, placeholder: "年" %>
+        </div>
+        <div class="form-field">
+          <%= form.label :japanese_month, "月" %>
+          <%= form.number_field :japanese_month, min: 1, max: 12, placeholder: "月" %>
+        </div>
+        <div class="form-field">
+          <%= form.label :japanese_day, "日" %>
+          <%= form.number_field :japanese_day, min: 1, max: 31, placeholder: "日" %>
+        </div>
+        <div class="form-field" style="justify-content: flex-end;">
+          <label>
+            <%= form.check_box :japanese_leap %>
+            閏月
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-full">
+      <label>
+        <%= form.check_box :approximate %>
+        日付を「頃」と表記する
+      </label>
+    </div>
+
+    <div class="form-full">
+      <div class="form-group-title">事項</div>
+      <div class="form-field">
+        <%= form.label :event, "出来事" %>
+        <%= form.text_field :event, required: true, placeholder: "例: 本能寺の変" %>
+      </div>
+    </div>
+
+    <div class="form-full">
+      <div class="form-group-title">備考</div>
+      <div class="form-field">
+        <%= form.label :note, "備考" %>
+        <%= form.text_area :note, placeholder: "補足情報があれば入力…" %>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <%= link_to "戻る", manage_timeline_path(timeline), class: "btn btn-secondary" %>
+      <%= form.submit event.persisted? ? "更新" : "追加", class: "btn btn-primary" %>
+    </div>
+  </div>
+<% end %>

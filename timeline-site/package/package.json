@@ -1,0 +1,22 @@
+{
+  "name": "wafujs",
+  "version": "1.0.6",
+  "description": "A Javascript library for Japan-related data.",
+  "main": "dist/wafu.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "webpack --mode development",
+    "production": "webpack --mode production"
+  },
+  "keywords": [
+    "Japan"
+  ],
+  "author": "Sukohi Kuhoh",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/preset-env": "^7.4.4",
+    "babel-loader": "^8.0.5",
+    "webpack": "^4.31.0",
+    "webpack-cli": "^3.3.2"
+  }
+}

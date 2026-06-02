@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="日本史年表。西暦・和暦対応の歴史年表を閲覧できます。">
+  <title>日本史年表</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ========== ヘッダー ========== -->
+  <header class="site-header">
+    <h1 id="site-title">日本史年表</h1>
+    <div class="header-decoration">
+      <span>年表</span>
+    </div>
+  </header>
+
+  <div class="container">
+
+
+
+    <!-- ========== 年表表示セクション ========== -->
+    <section class="section" id="timeline-section">
+      <h2 class="section-title">年表</h2>
+
+      <!-- 表示切り替えトグル (誕生日が設定されている場合のみ表示) -->
+      <div id="display-mode-container" style="display: none; align-items: center; gap: var(--space-sm); margin-bottom: var(--space-md); background: rgba(139, 69, 19, 0.03); padding: 8px 12px; border-radius: var(--radius-md); border: 1px solid var(--color-border-light); flex-wrap: wrap;">
+        <span style="font-size: var(--font-size-sm); font-weight: bold; color: var(--color-ink-light); display: flex; align-items: center; gap: 4px;">👀 表示切り替え:</span>
+        <div class="btn-group">
+          <button type="button" class="btn btn-sm active" id="btn-mode-date">📅 日付表示</button>
+          <button type="button" class="btn btn-sm" id="btn-mode-age-count">数え年</button>
+          <button type="button" class="btn btn-sm" id="btn-mode-age-full">満年齢</button>
+        </div>
+      </div>
+
+      <!-- 検索バー -->
+      <div class="search-bar">
+        <input type="text" id="search-input" placeholder="事項・備考・元号で検索…">
+        <button class="btn btn-secondary" id="search-btn">検索</button>
+        <button class="btn btn-secondary" id="search-clear-btn">クリア</button>
+      </div>
+
+      <!-- テーブル -->
+      <div class="table-wrapper">
+        <table class="timeline-table" id="timeline-table">
+          <thead>
+            <tr>
+              <th class="col-date">日付</th>
+              <th class="col-event">事項</th>
+            </tr>
+          </thead>
+          <tbody id="timeline-tbody">
+            <!-- JavaScript で動的に生成 -->
+          </tbody>
+        </table>
+      </div>
+      <div class="empty-message" id="empty-message" style="display:none;">
+        年表データがありません。
+      </div>
+      <div class="table-count" id="table-count"></div>
+    </section>
+
+  </div>
+
+  <!-- フッター -->
+  <footer class="site-footer" id="site-footer-text">
+    日本史年表
+  </footer>
+
+  <!-- 閲覧専用スクリプト -->
+  <script src="era-data.js"></script>
+  <script src="qreki-data.js"></script>
+  <script src="qreki.js"></script>
+  <script src="timeline-data.js"></script>
+  <script src="viewer.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,30 @@
+<% content_for :page_title, "マイ年表" %>
+<% content_for :header_label, "TIMELINES" %>
+
+<section class="section">
+  <div class="toolbar">
+    <h2 class="section-title" style="margin-bottom:0;">年表一覧</h2>
+    <%= link_to "新しい年表を作成", new_timeline_path, class: "btn btn-primary" %>
+  </div>
+
+  <% if @timelines.any? %>
+    <div class="timeline-list">
+      <% @timelines.each do |timeline| %>
+        <div class="timeline-list-item">
+          <div>
+            <strong><%= link_to timeline.title, timeline_path(timeline) %></strong>
+            <div class="date-japanese"><%= timeline.timeline_events.count %>件 / 更新 <%= l timeline.updated_at, format: :short %></div>
+          </div>
+          <div class="nav-actions">
+            <%= link_to "閲覧", timeline_path(timeline), class: "btn btn-secondary" %>
+            <%= link_to "編集", manage_timeline_path(timeline), class: "btn btn-secondary" %>
+            <%= link_to "設定", edit_timeline_path(timeline), class: "btn btn-secondary" %>
+            <%= button_to "削除", timeline_path(timeline), method: :delete, class: "btn btn-danger", form: { data: { turbo_confirm: "この年表を削除しますか？" } } %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="empty-message">まだ年表がありません。</div>
+  <% end %>
+</section>

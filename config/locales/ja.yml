@@ -1,0 +1,28 @@
+ja:
+  time:
+    formats:
+      short: "%Y/%m/%d %H:%M"
+  date:
+    formats:
+      short: "%Y/%m/%d"
+  activerecord:
+    models:
+      timeline: 年表
+      timeline_event: 年表項目
+      user: ユーザー
+    attributes:
+      timeline:
+        title: タイトル
+        birth_year: 誕生年
+        birth_month: 誕生月
+        birth_day: 誕生日
+      timeline_event:
+        western_year: 西暦年
+        event: 出来事
+      user:
+        email: メールアドレス
+        password: パスワード
+        password_confirmation: パスワード確認
+  errors:
+    messages:
+      not_saved: 保存できませんでした
