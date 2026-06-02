@@ -3,6 +3,12 @@
 <% content_for :footer_text, "#{@timeline.title}作成ツール - 編集ページ" %>
 
 <section class="section" id="timeline-section">
+  <ul class="breadcrumbs">
+    <li><%= link_to "ホーム", root_path %></li>
+    <li><%= link_to @timeline.title, timeline_path(@timeline) %></li>
+    <li>管理・編集</li>
+  </ul>
+
   <h2 class="section-title">
     <%= @timeline.title %>
     <% if @timeline.birth_year.present? %>

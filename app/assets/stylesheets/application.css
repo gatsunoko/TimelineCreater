@@ -203,6 +203,48 @@ body::before {
   border-radius: 2px;
 }
 
+/* --- パンくずリスト (Breadcrumbs) --- */
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-size: var(--font-size-xs);
+  color: var(--color-ink-muted);
+  margin-bottom: var(--space-sm);
+  list-style: none;
+  padding: 0;
+  flex-wrap: wrap;
+}
+
+.breadcrumbs li {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.breadcrumbs li:not(:last-child)::after {
+  content: "/";
+  color: var(--color-border-light);
+  font-weight: normal;
+}
+
+.breadcrumbs a {
+  color: var(--color-ink-light);
+  text-decoration: none;
+  transition: color var(--transition);
+}
+
+.breadcrumbs a:hover {
+  color: var(--color-accent);
+  text-decoration: underline;
+}
+
+.breadcrumbs li:last-child {
+  color: var(--color-ink-muted);
+  font-weight: 500;
+}
+
+
 /* --- 注意書き --- */
 .notice {
   background: var(--color-warning-bg);
@@ -1115,7 +1157,8 @@ body::before {
   .toolbar,
   .col-actions,
   .manage-title-edit,
-  .print-guide {
+  .print-guide,
+  .breadcrumbs {
     display: none !important;
   }
 

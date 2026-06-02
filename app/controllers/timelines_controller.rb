@@ -1,6 +1,6 @@
 
 class TimelinesController < ApplicationController
-  skip_before_action :authenticate_user!, only: :show
+  skip_before_action :authenticate_user!, only: %i[show public_index]
   before_action :set_visible_timeline, only: :show
   before_action :set_owned_timeline, only: %i[manage edit update export_json import_json]
   before_action :set_owned_timeline_for_destroy, only: :destroy
@@ -17,7 +17,16 @@ class TimelinesController < ApplicationController
   end
 
   def public_index
-    @public_timelines = Timeline.published.where.not(user_id: current_user.id).order(updated_at: :desc)
+    if params[:user_id].present?
+      @target_user = User.find(params[:user_id])
+      @public_timelines = Timeline.published.where(user_id: @target_user.id).order(updated_at: :desc)
+    else
+      if user_signed_in?
+        @public_timelines = Timeline.published.where.not(user_id: current_user.id).order(updated_at: :desc)
+      else
+        @public_timelines = Timeline.published.order(updated_at: :desc)
+      end
+    end
   end
 
   def show

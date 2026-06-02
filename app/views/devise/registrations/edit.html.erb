@@ -38,7 +38,7 @@
 
       <div class="form-full form-field">
         <%= f.label :current_password, "現在のパスワード (パスワードを変更する場合のみ入力)" %>
-        <%= f.password_field :current_password, autocomplete: "current-password" %>
+        <%= f.password_field :current_password, autocomplete: "new-password", value: "" %>
       </div>
 
       <div class="form-actions">

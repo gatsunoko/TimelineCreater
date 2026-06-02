@@ -2,6 +2,10 @@
 <% content_for :header_label, "NEW" %>
 
 <section class="section">
+  <ul class="breadcrumbs">
+    <li><%= link_to "ホーム", root_path %></li>
+    <li>新規作成</li>
+  </ul>
   <h2 class="section-title">年表設定</h2>
   <%= render "form", timeline: @timeline %>
 </section>

@@ -1,12 +1,32 @@
-<% content_for :page_title, "公開年表" %>
+<% if @target_user.present? %>
+  <% content_for :title, "#{@target_user.display_name}さんの公開年表" %>
+  <% content_for :page_title, "#{@target_user.display_name}さんの公開年表" %>
+<% else %>
+  <% content_for :title, "公開年表" %>
+  <% content_for :page_title, "公開年表" %>
+<% end %>
 <% content_for :header_label, "PUBLIC TIMELINES" %>
 
 <section class="section">
-  <h2 class="section-title">公開年表</h2>
+  <ul class="breadcrumbs">
+    <li><%= link_to "ホーム", root_path %></li>
+    <% if @target_user.present? %>
+      <li><%= link_to "公開年表", public_index_timelines_path %></li>
+      <li><%= @target_user.display_name %>さん</li>
+    <% else %>
+      <li>公開年表</li>
+    <% end %>
+  </ul>
+
+  <% if @target_user.present? %>
+    <h2 class="section-title"><%= @target_user.display_name %>さんの公開年表</h2>
+  <% else %>
+    <h2 class="section-title">公開年表</h2>
+  <% end %>
 
   <% if @public_timelines.any? %>
     <%= render "timeline_list", timelines: @public_timelines, owner_controls: false, show_owner: true %>
   <% else %>
-    <div class="empty-message">他のユーザーの公開年表はまだありません。</div>
+    <div class="empty-message">公開年表はまだありません。</div>
   <% end %>
 </section>

@@ -2,6 +2,12 @@
 <% content_for :header_label, "ADD" %>
 
 <section class="section">
+  <ul class="breadcrumbs">
+    <li><%= link_to "ホーム", root_path %></li>
+    <li><%= link_to @timeline.title, timeline_path(@timeline) %></li>
+    <li><%= link_to "管理・編集", manage_timeline_path(@timeline) %></li>
+    <li>出来事登録</li>
+  </ul>
   <h2 class="section-title">出来事登録</h2>
   <%= render "form", timeline: @timeline, event: @event %>
 </section>

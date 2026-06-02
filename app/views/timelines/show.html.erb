@@ -3,10 +3,19 @@
 <% content_for :footer_text, @timeline.title %>
 
 <section class="section" id="timeline-section">
+  <ul class="breadcrumbs">
+    <li><%= link_to "ホーム", root_path %></li>
+    <li><%= @timeline.title %></li>
+  </ul>
+
   <h2 class="section-title">
     <%= @timeline.title %>
     <% if user_signed_in? && current_user.id == @timeline.user_id %>
       <%= link_to "編集", manage_timeline_path(@timeline), class: "btn btn-secondary", style: "margin-left: auto;" %>
+    <% else %>
+      <div style="margin-left: auto; font-size: var(--font-size-sm); font-weight: normal; color: var(--color-ink-muted);">
+        作成者: <%= link_to @timeline.user.display_name, public_index_timelines_path(user_id: @timeline.user_id), style: "font-weight: bold; color: var(--color-accent); text-decoration: none; border-bottom: 1px dashed var(--color-accent);" %>
+      </div>
     <% end %>
   </h2>
 
