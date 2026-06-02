@@ -1,5 +1,7 @@
-<% content_for :title, "#{@timeline.title} - 編集" %>
-<% content_for :page_title, "#{@timeline.title} - 編集" %>
+<% content_for :title, @timeline.title %>
+<% content_for :page_title do %>
+  <%= @timeline.title %><span class="manage-title-edit"> - 編集</span>
+<% end %>
 <% content_for :header_label, "年表作成ツール" %>
 <% content_for :footer_text, "#{@timeline.title}作成ツール - 編集ページ" %>
 
@@ -115,6 +117,10 @@
   <h2 class="section-title">データエクスポート</h2>
   <div class="json-actions">
     <%= link_to "json でダウンロード", export_json_timeline_path(@timeline), class: "btn btn-primary" %>
-    <%= link_to "CSV でダウンロード", export_csv_timeline_path(@timeline), class: "btn btn-secondary" %>
+    <%= link_to "CSVをダウンロード", export_csv_timeline_path(@timeline), class: "btn btn-secondary" %>
+    <button type="button" class="btn btn-secondary" onclick="window.print();">PDFでエクスポート</button>
+  </div>
+  <div class="print-guide" style="font-size: var(--font-size-xs); color: var(--color-ink-muted); margin-top: var(--space-md); line-height: 1.5;">
+    💡 <strong>美しくPDF保存するコツ:</strong> 起動した印刷ダイアログの「詳細設定」または「オプション」で<strong>「ヘッダーとフッター」のチェックを外す</strong>と、余分な印刷日付やURL、ページ番号が消えて、大変見栄えの良い綺麗な年表PDFが保存できます。
   </div>
 </section>

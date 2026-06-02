@@ -4,7 +4,14 @@
 <% content_for :footer_text, @timeline.title %>
 
 <section class="section" id="timeline-section">
-  <h2 class="section-title">年表</h2>
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-lg); border-bottom: 2px solid var(--color-border); padding-bottom: var(--space-sm);">
+    <h2 class="section-title" style="margin-bottom: 0; border-bottom: none; padding-bottom: 0;">年表</h2>
+    <button type="button" class="btn btn-secondary btn-sm" onclick="window.print();">PDFでエクスポート</button>
+  </div>
+  
+  <div class="print-guide" style="font-size: var(--font-size-xs); color: var(--color-ink-muted); margin-top: calc(-1 * var(--space-sm)); margin-bottom: var(--space-md); line-height: 1.5; padding: var(--space-sm) var(--space-md); background: rgba(139, 69, 19, 0.03); border-radius: var(--radius-md); border: 1px solid var(--color-border-light);">
+    💡 <strong>美しくPDF保存するコツ:</strong> 起動した印刷設定で<strong>「ヘッダーとフッター」のチェックを外す</strong>と、余分な日付・URL・ページ番号が消去され、綺麗にデザインされた年表のみを保存できます。
+  </div>
 
   <% if @timeline.birth_year.present? %>
     <div id="display-mode-container" style="display: flex; align-items: center; gap: var(--space-sm); margin-bottom: var(--space-md); background: rgba(139, 69, 19, 0.03); padding: 8px 12px; border-radius: var(--radius-md); border: 1px solid var(--color-border-light); flex-wrap: wrap;">
