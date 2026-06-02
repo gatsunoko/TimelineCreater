@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_06_02_000300) do
+ActiveRecord::Schema[8.1].define(version: 2026_06_02_000400) do
   create_table "timeline_events", force: :cascade do |t|
     t.boolean "approximate", default: false, null: false
     t.datetime "created_at", null: false
@@ -38,9 +38,11 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_02_000300) do
     t.integer "birth_month"
     t.integer "birth_year"
     t.datetime "created_at", null: false
+    t.boolean "public", default: false, null: false
     t.string "title", default: "日本史年表", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id", null: false
+    t.index ["public"], name: "index_timelines_on_public"
     t.index ["user_id"], name: "index_timelines_on_user_id"
   end
 

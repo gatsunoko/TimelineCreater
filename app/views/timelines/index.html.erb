@@ -3,28 +3,33 @@
 
 <section class="section">
   <div class="toolbar">
-    <h2 class="section-title" style="margin-bottom:0;">年表一覧</h2>
+    <h2 class="section-title" style="margin-bottom:0;">自分の年表</h2>
     <%= link_to "新しい年表を作成", new_timeline_path, class: "btn btn-primary" %>
   </div>
 
   <% if @timelines.any? %>
-    <div class="timeline-list">
-      <% @timelines.each do |timeline| %>
-        <div class="timeline-list-item">
-          <div>
-            <strong><%= link_to timeline.title, timeline_path(timeline) %></strong>
-            <div class="date-japanese"><%= timeline.timeline_events.count %>件 / 更新 <%= l timeline.updated_at, format: :short %></div>
-          </div>
-          <div class="nav-actions">
-            <%= link_to "閲覧", timeline_path(timeline), class: "btn btn-secondary" %>
-            <%= link_to "編集", manage_timeline_path(timeline), class: "btn btn-secondary" %>
-            <%= link_to "設定", edit_timeline_path(timeline), class: "btn btn-secondary" %>
-            <%= button_to "削除", timeline_path(timeline), method: :delete, class: "btn btn-danger", form: { data: { turbo_confirm: "この年表を削除しますか？" } } %>
-          </div>
-        </div>
-      <% end %>
-    </div>
+    <%= render "timeline_list", timelines: @timelines, owner_controls: true, show_owner: false %>
+    <% if @timelines_scope.count > 5 %>
+      <div class="more-link">
+        <%= link_to "もっと見る", mine_timelines_path, class: "btn btn-secondary" %>
+      </div>
+    <% end %>
   <% else %>
     <div class="empty-message">まだ年表がありません。</div>
+  <% end %>
+</section>
+
+<section class="section">
+  <h2 class="section-title">公開年表</h2>
+
+  <% if @public_timelines.any? %>
+    <%= render "timeline_list", timelines: @public_timelines, owner_controls: false, show_owner: true %>
+    <% if @public_timelines_scope.count > 5 %>
+      <div class="more-link">
+        <%= link_to "もっと見る", public_index_timelines_path, class: "btn btn-secondary" %>
+      </div>
+    <% end %>
+  <% else %>
+    <div class="empty-message">他のユーザーの公開年表はまだありません。</div>
   <% end %>
 </section>

@@ -10,10 +10,14 @@ Rails.application.routes.draw do
   end
 
   resources :timelines do
+    collection do
+      get :mine
+      get :public_index
+    end
+
     member do
       get :manage
       get :export_json
-      get :export_js
       get :export_csv
       post :import_json
       post :import_csv

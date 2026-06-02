@@ -12,6 +12,26 @@
     </div>
 
     <div class="form-full">
+      <div class="form-group-title">公開設定</div>
+      <div class="visibility-options">
+        <label class="visibility-option">
+          <%= form.radio_button :public, false %>
+          <span>
+            <strong>非公開</strong>
+            <small>登録したユーザーだけが閲覧できます。</small>
+          </span>
+        </label>
+        <label class="visibility-option">
+          <%= form.radio_button :public, true %>
+          <span>
+            <strong>公開</strong>
+            <small>他のユーザーも閲覧できます。</small>
+          </span>
+        </label>
+      </div>
+    </div>
+
+    <div class="form-full">
       <div class="form-group-title">
         主役の誕生日 <span class="optional-label">任意</span>
       </div>

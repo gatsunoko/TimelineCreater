@@ -1,0 +1,15 @@
+<% content_for :page_title, "自分の年表" %>
+<% content_for :header_label, "MY TIMELINES" %>
+
+<section class="section">
+  <div class="toolbar">
+    <h2 class="section-title" style="margin-bottom:0;">自分の年表</h2>
+    <%= link_to "新しい年表を作成", new_timeline_path, class: "btn btn-primary" %>
+  </div>
+
+  <% if @timelines.any? %>
+    <%= render "timeline_list", timelines: @timelines, owner_controls: true, show_owner: false %>
+  <% else %>
+    <div class="empty-message">まだ年表がありません。</div>
+  <% end %>
+</section>

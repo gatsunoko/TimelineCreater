@@ -11,10 +11,7 @@ class TimelineEventsController < ApplicationController
     if @event.save
       redirect_to manage_timeline_path(@timeline), notice: "項目を追加しました。"
     else
-      @events = @timeline.timeline_events.ordered
-      @query = ""
-      @display_mode = "date"
-      render "timelines/manage", status: :unprocessable_entity
+      render :new, status: :unprocessable_entity
     end
   end
 

@@ -5,6 +5,7 @@ ja:
   date:
     formats:
       short: "%Y/%m/%d"
+
   activerecord:
     models:
       timeline: 年表
@@ -16,13 +17,75 @@ ja:
         birth_year: 誕生年
         birth_month: 誕生月
         birth_day: 誕生日
+        public: 公開設定
       timeline_event:
         western_year: 西暦年
+        western_month: 西暦月
+        western_day: 西暦日
+        japanese_era: 元号
+        japanese_year: 和暦年
+        japanese_month: 和暦月
+        japanese_day: 和暦日
         event: 出来事
+        note: 備考
       user:
         email: メールアドレス
         password: パスワード
         password_confirmation: パスワード確認
+
   errors:
     messages:
       not_saved: 保存できませんでした
+
+  devise:
+    confirmations:
+      confirmed: メールアドレスを確認しました。
+      send_instructions: メールアドレス確認用の案内を送信しました。
+      send_paranoid_instructions: 登録済みの場合、メールアドレス確認用の案内を送信します。
+    failure:
+      already_authenticated: すでにログインしています。
+      inactive: アカウントが有効化されていません。
+      invalid: メールアドレスまたはパスワードが正しくありません。
+      locked: アカウントがロックされています。
+      last_attempt: もう一度失敗するとアカウントがロックされます。
+      not_found_in_database: メールアドレスまたはパスワードが正しくありません。
+      timeout: セッションの有効期限が切れました。もう一度ログインしてください。
+      unauthenticated: ログインしてください。
+      unconfirmed: メールアドレスの確認が必要です。
+    mailer:
+      confirmation_instructions:
+        subject: メールアドレス確認のご案内
+      reset_password_instructions:
+        subject: パスワード再設定のご案内
+      unlock_instructions:
+        subject: アカウントロック解除のご案内
+      email_changed:
+        subject: メールアドレス変更のお知らせ
+      password_change:
+        subject: パスワード変更のお知らせ
+    omniauth_callbacks:
+      failure: "%{kind} アカウントでの認証に失敗しました。"
+      success: "%{kind} アカウントで認証しました。"
+    passwords:
+      no_token: このページにはパスワード再設定メールからアクセスしてください。
+      send_instructions: パスワード再設定用の案内を送信しました。
+      send_paranoid_instructions: 登録済みの場合、パスワード再設定用の案内を送信します。
+      updated: パスワードを変更しました。ログイン済みです。
+      updated_not_active: パスワードを変更しました。
+    registrations:
+      destroyed: アカウントを削除しました。
+      signed_up: アカウント登録が完了しました。
+      signed_up_but_inactive: アカウント登録は完了しましたが、まだ有効化されていません。
+      signed_up_but_locked: アカウント登録は完了しましたが、ロックされています。
+      signed_up_but_unconfirmed: アカウント登録が完了しました。確認用メールをご確認ください。
+      update_needs_confirmation: アカウント情報を更新しました。新しいメールアドレスの確認が必要です。
+      updated: アカウント情報を更新しました。
+      updated_but_not_signed_in: アカウント情報を更新しました。もう一度ログインしてください。
+    sessions:
+      signed_in: ログインしました。
+      signed_out: ログアウトしました。
+      already_signed_out: すでにログアウトしています。
+    unlocks:
+      send_instructions: アカウントロック解除用の案内を送信しました。
+      send_paranoid_instructions: 登録済みの場合、アカウントロック解除用の案内を送信します。
+      unlocked: アカウントのロックを解除しました。

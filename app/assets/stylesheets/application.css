@@ -449,6 +449,37 @@ body::before {
   gap: var(--space-xl);
 }
 
+.visibility-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-md);
+}
+
+.visibility-option {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-sm);
+  padding: var(--space-md);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.24);
+  cursor: pointer;
+}
+
+.visibility-option input {
+  margin-top: 0.25rem;
+}
+
+.visibility-option strong,
+.visibility-option small {
+  display: block;
+}
+
+.visibility-option small {
+  color: var(--color-ink-muted);
+  font-size: var(--font-size-xs);
+}
+
 .form-row {
   display: flex;
   gap: var(--space-sm);
@@ -837,6 +868,10 @@ body::before {
     gap: var(--space-md);
   }
 
+  .visibility-options {
+    grid-template-columns: 1fr;
+  }
+
   .form-row {
     flex-wrap: wrap;
   }
@@ -1040,6 +1075,12 @@ body::before {
   border: 1px solid var(--color-border-light);
   border-radius: var(--radius-md);
   background: rgba(255, 255, 255, 0.28);
+}
+
+.more-link {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: var(--space-md);
 }
 
 .auth-panel {

@@ -12,11 +12,11 @@ module ApplicationHelper
         event.western_year - timeline.birth_year + 1
       else
         full = event.western_year - timeline.birth_year
-        full -= 1 if [event_month, event_day] < [birth_month, birth_day]
+        full -= 1 if (event_month * 100 + event_day) < (birth_month * 100 + birth_day)
         full
       end
 
-    age.positive? || age.zero? ? "#{age}歳" : "誕生前"
+    age >= 0 ? "#{age}歳" : "誕生前"
   end
 
   def mode_button_class(current, mode)

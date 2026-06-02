@@ -1,10 +1,23 @@
 require "csv"
 
 class TimelinesController < ApplicationController
-  before_action :set_timeline, only: %i[show manage edit update destroy export_json export_js export_csv import_json import_csv]
+  skip_before_action :authenticate_user!, only: :show
+  before_action :set_visible_timeline, only: :show
+  before_action :set_owned_timeline, only: %i[manage edit update destroy export_json export_csv import_json import_csv]
 
   def index
+    @timelines_scope = current_user.timelines.order(updated_at: :desc)
+    @public_timelines_scope = Timeline.published.where.not(user_id: current_user.id).order(updated_at: :desc)
+    @timelines = @timelines_scope.limit(5)
+    @public_timelines = @public_timelines_scope.limit(5)
+  end
+
+  def mine
     @timelines = current_user.timelines.order(updated_at: :desc)
+  end
+
+  def public_index
+    @public_timelines = Timeline.published.where.not(user_id: current_user.id).order(updated_at: :desc)
   end
 
   def show
@@ -28,7 +41,7 @@ class TimelinesController < ApplicationController
   def create
     @timeline = current_user.timelines.new(timeline_params)
     if @timeline.save
-      redirect_to edit_timeline_path(@timeline), notice: "年表を作成しました。"
+      redirect_to new_timeline_timeline_event_path(@timeline), notice: "年表を作成しました。"
     else
       render :new, status: :unprocessable_entity
     end
@@ -52,16 +65,8 @@ class TimelinesController < ApplicationController
   def export_json
     send_data(
       JSON.pretty_generate(@timeline.to_export_hash),
-      filename: "timeline-data.json",
+      filename: "#{@timeline.title}.json",
       type: "application/json; charset=utf-8"
-    )
-  end
-
-  def export_js
-    send_data(
-      "const TIMELINE_DATA = #{JSON.pretty_generate(@timeline.to_export_hash)};\n",
-      filename: "timeline-data.js",
-      type: "application/javascript; charset=utf-8"
     )
   end
 
@@ -93,12 +98,14 @@ class TimelinesController < ApplicationController
     items = payload.is_a?(Array) ? payload : payload.fetch("items", [])
 
     Timeline.transaction do
-      @timeline.update!(
-        title: payload["title"].presence || @timeline.title,
-        birth_year: payload.dig("birth", "year"),
-        birth_month: payload.dig("birth", "month"),
-        birth_day: payload.dig("birth", "day")
-      ) unless payload.is_a?(Array)
+      unless payload.is_a?(Array)
+        @timeline.update!(
+          title: payload["title"].presence || @timeline.title,
+          birth_year: payload.dig("birth", "year"),
+          birth_month: payload.dig("birth", "month"),
+          birth_day: payload.dig("birth", "day")
+        )
+      end
 
       @timeline.timeline_events.destroy_all
       items.each { |item| @timeline.timeline_events.create!(event_attributes_from_json(item)) }
@@ -142,12 +149,23 @@ class TimelinesController < ApplicationController
 
   private
 
-  def set_timeline
+  def set_visible_timeline
+    @timeline = Timeline.find(params[:id])
+    return if @timeline.visible_to?(current_user)
+
+    if user_signed_in?
+      redirect_to timelines_path, alert: "この年表は非公開です。"
+    else
+      redirect_to new_user_session_path, alert: "この年表を見るにはログインしてください。"
+    end
+  end
+
+  def set_owned_timeline
     @timeline = current_user.timelines.find(params[:id])
   end
 
   def timeline_params
-    params.require(:timeline).permit(:title, :birth_year, :birth_month, :birth_day)
+    params.require(:timeline).permit(:title, :birth_year, :birth_month, :birth_day, :public)
   end
 
   def event_attributes_from_json(item)

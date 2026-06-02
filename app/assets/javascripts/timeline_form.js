@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   const eraData = typeof ERA_DATA !== "undefined" ? ERA_DATA : [];
+  const GREGORIAN_ADOPTION_YEAR = 1873;
 
   const populateEraOptions = (select, currentValue = "") => {
     if (!select || eraData.length === 0) return;
@@ -33,11 +34,28 @@ document.addEventListener("DOMContentLoaded", () => {
     return typeof Qreki !== "undefined" && Qreki && Qreki.isReady && Qreki.isReady();
   };
 
+  const setModernJapaneseDate = (fields, year, month, day) => {
+    const era = findEraByWesternYear(year);
+    if (!era) return false;
+
+    fields.japaneseEra.value = era.name;
+    fields.japaneseYear.value = year - era.startYear + 1;
+    if (fields.japaneseMonth) fields.japaneseMonth.value = month || "";
+    if (fields.japaneseDay) fields.japaneseDay.value = day || "";
+    if (fields.japaneseLeap) fields.japaneseLeap.checked = false;
+    return true;
+  };
+
   const setJapaneseFromWestern = (fields) => {
     const year = numberValue(fields.westernYear);
     const month = numberValue(fields.westernMonth);
     const day = numberValue(fields.westernDay);
     if (!year || !fields.japaneseEra || !fields.japaneseYear) return;
+
+    if (year >= GREGORIAN_ADOPTION_YEAR) {
+      setModernJapaneseDate(fields, year, month, day);
+      return;
+    }
 
     if (year && month && day && canUseQreki()) {
       const converted = Qreki.westToKyureki(year, month, day);
@@ -59,6 +77,45 @@ document.addEventListener("DOMContentLoaded", () => {
     if (fields.japaneseMonth && fields.westernMonth) fields.japaneseMonth.value = fields.westernMonth.value;
     if (fields.japaneseDay && fields.westernDay) fields.japaneseDay.value = fields.westernDay.value;
     if (fields.japaneseLeap) fields.japaneseLeap.checked = false;
+  };
+
+  const setWesternFromJapanese = (fields) => {
+    if (!fields.westernYear || !fields.japaneseEra || !fields.japaneseYear) return;
+
+    const era = eraData.find((candidate) => candidate.name === fields.japaneseEra.value);
+    const eraYear = numberValue(fields.japaneseYear);
+    if (!era || !eraYear) return;
+
+    const westernYearValue = era.startYear + eraYear - 1;
+    const month = numberValue(fields.japaneseMonth);
+    const day = numberValue(fields.japaneseDay);
+
+    if (westernYearValue >= GREGORIAN_ADOPTION_YEAR) {
+      fields.westernYear.value = westernYearValue;
+      if (fields.westernMonth) fields.westernMonth.value = month || "";
+      if (fields.westernDay) fields.westernDay.value = day || "";
+      return;
+    }
+
+    if (month && day && canUseQreki()) {
+      const converted = Qreki.kyurekiToWest(
+        fields.japaneseEra.value,
+        eraYear,
+        month,
+        !!(fields.japaneseLeap && fields.japaneseLeap.checked),
+        day
+      );
+      if (converted) {
+        fields.westernYear.value = converted.year || "";
+        if (fields.westernMonth) fields.westernMonth.value = converted.month || "";
+        if (fields.westernDay) fields.westernDay.value = converted.day || "";
+        return;
+      }
+    }
+
+    fields.westernYear.value = westernYearValue;
+    if (fields.westernMonth && fields.japaneseMonth) fields.westernMonth.value = fields.japaneseMonth.value;
+    if (fields.westernDay && fields.japaneseDay) fields.westernDay.value = fields.japaneseDay.value;
   };
 
   document.querySelectorAll("[data-note-toggle]").forEach((button) => {
@@ -108,6 +165,25 @@ document.addEventListener("DOMContentLoaded", () => {
     [westernYear, westernMonth, westernDay].forEach((input) => {
       if (input) input.addEventListener("input", syncEventWesternToJapanese);
     });
+
+    const syncEventJapaneseToWestern = () => {
+      setWesternFromJapanese({
+        westernYear,
+        westernMonth,
+        westernDay,
+        japaneseEra,
+        japaneseYear,
+        japaneseMonth,
+        japaneseDay,
+        japaneseLeap
+      });
+    };
+
+    [japaneseEra, japaneseYear, japaneseMonth, japaneseDay, japaneseLeap].forEach((input) => {
+      if (input) input.addEventListener("input", syncEventJapaneseToWestern);
+      if (input && input.tagName === "SELECT") input.addEventListener("change", syncEventJapaneseToWestern);
+      if (input && input.type === "checkbox") input.addEventListener("change", syncEventJapaneseToWestern);
+    });
   }
 
   const birthWesternYear = document.getElementById("timeline_birth_year");
@@ -133,15 +209,15 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   const syncBirthJapaneseToWestern = () => {
-    if (!birthWesternYear || !birthJapaneseEra || !birthJapaneseYear) return;
-
-    const era = eraData.find((candidate) => candidate.name === birthJapaneseEra.value);
-    const eraYear = parseInt(birthJapaneseYear.value, 10);
-    if (!era || !eraYear) return;
-
-    birthWesternYear.value = era.startYear + eraYear - 1;
-    if (birthWesternMonth && birthJapaneseMonth) birthWesternMonth.value = birthJapaneseMonth.value;
-    if (birthWesternDay && birthJapaneseDay) birthWesternDay.value = birthJapaneseDay.value;
+    setWesternFromJapanese({
+      westernYear: birthWesternYear,
+      westernMonth: birthWesternMonth,
+      westernDay: birthWesternDay,
+      japaneseEra: birthJapaneseEra,
+      japaneseYear: birthJapaneseYear,
+      japaneseMonth: birthJapaneseMonth,
+      japaneseDay: birthJapaneseDay
+    });
   };
 
   [birthWesternYear, birthWesternMonth, birthWesternDay].forEach((input) => {

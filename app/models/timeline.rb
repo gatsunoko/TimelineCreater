@@ -6,6 +6,12 @@ class Timeline < ApplicationRecord
   validates :birth_month, inclusion: { in: 1..12 }, allow_nil: true
   validates :birth_day, inclusion: { in: 1..31 }, allow_nil: true
 
+  scope :published, -> { where(public: true) }
+
+  def visible_to?(viewer)
+    public? || user == viewer
+  end
+
   def birth
     { year: birth_year, month: birth_month, day: birth_day }
   end
