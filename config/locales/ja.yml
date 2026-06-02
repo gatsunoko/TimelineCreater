@@ -29,12 +29,21 @@ ja:
         event: 出来事
         note: 備考
       user:
+        name: 名前
         email: メールアドレス
         password: パスワード
         password_confirmation: パスワード確認
+        current_password: 現在のパスワード
 
   errors:
+    format: "%{attribute}%{message}"
     messages:
+      blank: "を入力してください"
+      confirmation: "と%{attribute}が一致しません"
+      invalid: "は不正な値です"
+      taken: "はすでに存在します"
+      too_short: "は%{count}文字以上で入力してください"
+      too_long: "は%{count}文字以内で入力してください"
       not_saved: 保存できませんでした
 
   devise:

@@ -11,8 +11,13 @@
 
     <div class="form-grid">
       <div class="form-full form-field">
+        <%= f.label :name, "名前" %>
+        <%= f.text_field :name, autofocus: true, placeholder: "歴史 太郎" %>
+      </div>
+
+      <div class="form-full form-field">
         <%= f.label :email, "メールアドレス" %>
-        <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+        <%= f.email_field :email, autocomplete: "email" %>
       </div>
 
       <div class="form-full form-field">

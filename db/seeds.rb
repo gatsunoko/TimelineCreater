@@ -1,7 +1,8 @@
-user = User.find_or_create_by!(email: "demo@example.com") do |record|
-  record.password = "password"
-  record.password_confirmation = "password"
-end
+user = User.find_or_initialize_by(email: "demo@example.com")
+user.name = "デモユーザー" if user.name.blank?
+user.password = "password" if user.new_record?
+user.password_confirmation = "password" if user.new_record?
+user.save!
 
 timeline = user.timelines.find_or_create_by!(title: "日本史年表") do |record|
   record.birth_year = 1534

@@ -4,6 +4,8 @@ class TimelineEventsController < ApplicationController
 
   def new
     @event = @timeline.timeline_events.new
+    latest_event = @timeline.timeline_events.where.not(japanese_era: [nil, ""]).order(sort_key: :desc, id: :desc).first
+    @event.japanese_era = latest_event.japanese_era if latest_event
   end
 
   def create

@@ -1,29 +1,24 @@
 <% content_for :title, @timeline.title %>
-<% content_for :page_title do %>
-  <%= @timeline.title %><span class="manage-title-edit"> - 編集</span>
-<% end %>
-<% content_for :header_label, "年表作成ツール" %>
+<% content_for :no_site_header, true %>
 <% content_for :footer_text, "#{@timeline.title}作成ツール - 編集ページ" %>
 
-<div class="settings-card" style="margin-bottom: var(--space-md); padding: var(--space-md) var(--space-lg); background: var(--color-bg-paper); border: 1px solid var(--color-border); border-radius: var(--radius-lg); display: flex; align-items: center; justify-content: space-between; gap: var(--space-md); flex-wrap: wrap; box-shadow: 0 2px 8px var(--color-shadow);">
-  <div>
-    <strong><%= @timeline.title %></strong>
-    <% if @timeline.birth_year.present? %>
-      <span class="date-japanese"> / 誕生日: <%= [@timeline.birth_year, @timeline.birth_month, @timeline.birth_day].compact.join("/") %></span>
-    <% end %>
-  </div>
-  <div class="nav-actions">
-    <%= link_to "閲覧ページを表示", timeline_path(@timeline), class: "btn btn-secondary" %>
-    <%= link_to "設定", edit_timeline_path(@timeline), class: "btn btn-secondary" %>
-  </div>
-</div>
-
-<div class="toolbar" style="margin-bottom: var(--space-lg); justify-content: flex-start;">
-  <%= link_to "出来事登録", new_timeline_timeline_event_path(@timeline), class: "btn btn-primary" %>
-</div>
-
 <section class="section" id="timeline-section">
-  <h2 class="section-title">年表</h2>
+  <h2 class="section-title">
+    <%= @timeline.title %>
+    <% if @timeline.birth_year.present? %>
+      <span class="date-japanese" style="font-size: var(--font-size-sm); font-weight: normal; margin-left: var(--space-sm); color: var(--color-ink-muted);">
+        (誕生日: <%= [@timeline.birth_year, @timeline.birth_month, @timeline.birth_day].compact.join("/") %>)
+      </span>
+    <% end %>
+    <div style="margin-left: auto; display: flex; gap: var(--space-sm); align-items: center;">
+      <%= link_to "閲覧ページを表示", timeline_path(@timeline), class: "btn btn-secondary" %>
+      <%= link_to "設定", edit_timeline_path(@timeline), class: "btn btn-secondary" %>
+    </div>
+  </h2>
+
+  <div class="toolbar" style="margin-bottom: var(--space-lg); justify-content: flex-start;">
+    <%= link_to "出来事登録", new_timeline_timeline_event_path(@timeline), class: "btn btn-primary" %>
+  </div>
 
   <% if @timeline.birth_year.present? %>
     <div id="display-mode-container" style="display: flex; align-items: center; gap: var(--space-sm); margin-bottom: var(--space-md); background: rgba(139, 69, 19, 0.03); padding: 8px 12px; border-radius: var(--radius-md); border: 1px solid var(--color-border-light); flex-wrap: wrap;">
@@ -93,10 +88,16 @@
   <h2 class="section-title">データインポート</h2>
   <div>
     <div class="form-group-title">JSONインポート</div>
-    <%= form_with url: import_json_timeline_path(@timeline), multipart: true do |form| %>
+    <%= form_with url: import_json_timeline_path(@timeline), multipart: true, data: { turbo: false } do |form| %>
       <div class="form-row">
-        <%= form.file_field :file, accept: ".json" %>
+        <%= form.file_field :file, accept: ".json", required: true %>
         <%= form.submit "JSONインポートを実行", class: "btn btn-primary" %>
+      </div>
+      <div style="margin-top: var(--space-sm);">
+        <label>
+          <%= check_box_tag :overwrite_metadata, "true", false %>
+          タイトル・誕生日もインポートデータで上書きする
+        </label>
       </div>
     <% end %>
   </div>
@@ -112,3 +113,5 @@
     💡 <strong>美しくPDF保存するコツ:</strong> 起動した印刷ダイアログの「詳細設定」または「オプション」で<strong>「ヘッダーとフッター」のチェックを外す</strong>と、余分な印刷日付やURL、ページ番号が消えて、大変見栄えの良い綺麗な年表PDFが保存できます。
   </div>
 </section>
+
+

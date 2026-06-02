@@ -18,7 +18,8 @@
       <%= link_to "年表作成サイト", root_path %>
       <div class="nav-actions">
         <% if user_signed_in? %>
-          <span><%= current_user.email %></span>
+          <span style="font-weight: bold; color: var(--color-header-text);"><%= current_user.name %></span>
+          <%= link_to "プロフィール編集", edit_user_registration_path, class: "btn btn-sm btn-secondary" %>
           <%= button_to "ログアウト", destroy_user_session_path, method: :delete, class: "btn btn-sm btn-secondary" %>
         <% else %>
           <%= link_to "ログイン", new_user_session_path %>

@@ -79,15 +79,16 @@ class TimelinesController < ApplicationController
 
     Timeline.transaction do
       unless payload.is_a?(Array)
-        @timeline.update!(
-          title: payload["title"].presence || @timeline.title,
-          birth_year: payload.dig("birth", "year"),
-          birth_month: payload.dig("birth", "month"),
-          birth_day: payload.dig("birth", "day")
-        )
+        if params[:overwrite_metadata] == "true"
+          @timeline.update!(
+            title: payload["title"].presence || @timeline.title,
+            birth_year: payload.dig("birth", "year"),
+            birth_month: payload.dig("birth", "month"),
+            birth_day: payload.dig("birth", "day")
+          )
+        end
       end
 
-      @timeline.timeline_events.destroy_all
       items.each { |item| @timeline.timeline_events.create!(event_attributes_from_json(item)) }
     end
 

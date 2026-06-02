@@ -5,7 +5,7 @@
         <strong><%= link_to timeline.title, timeline_path(timeline) %></strong>
         <div class="date-japanese">
           <% if show_owner %>
-            作成者: <%= timeline.user.email %> /
+            作成者: <%= timeline.user.display_name %> /
           <% else %>
             <%= timeline.public? ? "公開" : "非公開" %> /
           <% end %>
