@@ -2,7 +2,8 @@
 class TimelinesController < ApplicationController
   skip_before_action :authenticate_user!, only: :show
   before_action :set_visible_timeline, only: :show
-  before_action :set_owned_timeline, only: %i[manage edit update destroy export_json import_json]
+  before_action :set_owned_timeline, only: %i[manage edit update export_json import_json]
+  before_action :set_owned_timeline_for_destroy, only: :destroy
 
   def index
     @timelines_scope = current_user.timelines.order(updated_at: :desc)
@@ -57,6 +58,8 @@ class TimelinesController < ApplicationController
   end
 
   def destroy
+    return redirect_to timelines_path, notice: "年表はすでに削除されています。" unless @timeline
+
     @timeline.destroy
     redirect_to timelines_path, notice: "年表を削除しました。"
   end
@@ -109,6 +112,10 @@ class TimelinesController < ApplicationController
 
   def set_owned_timeline
     @timeline = current_user.timelines.find(params[:id])
+  end
+
+  def set_owned_timeline_for_destroy
+    @timeline = current_user.timelines.find_by(id: params[:id])
   end
 
   def timeline_params
