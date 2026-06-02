@@ -18,9 +18,7 @@ Rails.application.routes.draw do
     member do
       get :manage
       get :export_json
-      get :export_csv
       post :import_json
-      post :import_csv
     end
     resources :timeline_events, except: %i[index show]
   end

@@ -1,9 +1,8 @@
-require "csv"
 
 class TimelinesController < ApplicationController
   skip_before_action :authenticate_user!, only: :show
   before_action :set_visible_timeline, only: :show
-  before_action :set_owned_timeline, only: %i[manage edit update destroy export_json export_csv import_json import_csv]
+  before_action :set_owned_timeline, only: %i[manage edit update destroy export_json import_json]
 
   def index
     @timelines_scope = current_user.timelines.order(updated_at: :desc)
@@ -70,28 +69,6 @@ class TimelinesController < ApplicationController
     )
   end
 
-  def export_csv
-    csv = CSV.generate(headers: true) do |out|
-      out << %w[西暦年 西暦月 西暦日 元号 和暦年 和暦月 閏月 和暦日 頃 事項 備考]
-      @timeline.timeline_events.ordered.each do |event|
-        out << [
-          event.western_year,
-          event.western_month,
-          event.western_day,
-          event.japanese_era,
-          event.japanese_year,
-          event.japanese_month,
-          event.japanese_leap ? "1" : "",
-          event.japanese_day,
-          event.approximate ? "1" : "",
-          event.event,
-          event.note
-        ]
-      end
-    end
-
-    send_data "\uFEFF#{csv}", filename: "timeline-data.csv", type: "text/csv; charset=utf-8"
-  end
 
   def import_json
     payload = JSON.parse(params.require(:file).read)
@@ -116,36 +93,6 @@ class TimelinesController < ApplicationController
     redirect_to manage_timeline_path(@timeline), alert: "JSONインポートに失敗しました: #{e.message}"
   end
 
-  def import_csv
-    rows = CSV.parse(params.require(:file).read, headers: true)
-    imported = 0
-
-    Timeline.transaction do
-      @timeline.timeline_events.destroy_all
-      rows.each do |row|
-        next if row["西暦年"].blank? || row["事項"].blank?
-
-        @timeline.timeline_events.create!(
-          western_year: row["西暦年"],
-          western_month: row["西暦月"].presence,
-          western_day: row["西暦日"].presence,
-          japanese_era: row["元号"].presence,
-          japanese_year: row["和暦年"].presence,
-          japanese_month: row["和暦月"].presence,
-          japanese_leap: truthy?(row["閏月"]),
-          japanese_day: row["和暦日"].presence,
-          approximate: truthy?(row["頃"]),
-          event: row["事項"],
-          note: row["備考"]
-        )
-        imported += 1
-      end
-    end
-
-    redirect_to manage_timeline_path(@timeline), notice: "#{imported}件のCSVデータをインポートしました。"
-  rescue CSV::MalformedCSVError, ActiveRecord::RecordInvalid => e
-    redirect_to manage_timeline_path(@timeline), alert: "CSVインポートに失敗しました: #{e.message}"
-  end
 
   private
 
@@ -186,7 +133,5 @@ class TimelinesController < ApplicationController
     }
   end
 
-  def truthy?(value)
-    value.to_s.downcase.in?(["1", "true", "○", "閏", "頃"])
-  end
+
 end

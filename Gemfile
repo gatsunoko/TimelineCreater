@@ -7,7 +7,6 @@ gem "propshaft"
 gem "sqlite3", ">= 2.1"
 gem "puma", ">= 6.0"
 gem "devise", "~> 4.9"
-gem "csv"
 gem "tzinfo-data", platforms: %i[ windows jruby ]
 
 group :development, :test do
