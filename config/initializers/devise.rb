@@ -10,4 +10,10 @@ Devise.setup do |config|
   config.password_length = 6..128
   config.email_regexp = /\A[^@\s]+@[^@\s]+\z/
   config.sign_out_via = :delete
+
+  # OmniAuth Google OAuth2
+  config.omniauth :google_oauth2,
+                  ENV.fetch("GOOGLE_CLIENT_ID", ""),
+                  ENV.fetch("GOOGLE_CLIENT_SECRET", ""),
+                  { scope: "email,profile" }
 end

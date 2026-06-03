@@ -1152,6 +1152,55 @@ body::before {
   border-color: var(--color-danger);
 }
 
+/* --- OAuth / Google ログインボタン --- */
+.oauth-divider {
+  display: flex;
+  align-items: center;
+  margin: var(--space-lg) 0;
+  gap: var(--space-md);
+}
+
+.oauth-divider::before,
+.oauth-divider::after {
+  content: "";
+  flex: 1;
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.oauth-divider span {
+  font-size: var(--font-size-sm);
+  color: var(--color-ink-muted);
+  white-space: nowrap;
+}
+
+.btn-google,
+.btn-google button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 10px 16px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-paper);
+  color: var(--color-ink);
+  font-family: var(--font-main);
+  font-size: var(--font-size-base);
+  font-weight: 500;
+  cursor: pointer;
+  transition: background var(--transition), box-shadow var(--transition);
+}
+
+.btn-google:hover {
+  background: var(--color-bg-subtle);
+  box-shadow: 0 1px 4px var(--color-shadow);
+}
+
+/* button_to が生成する form タグのスタイルリセット */
+form.btn-google {
+  margin: 0;
+}
+
 /* =================================================================
    PDF / 印刷用スタイル (@media print)
    余分なコントロールを除外し、A4サイズに最適化された年表を出力します

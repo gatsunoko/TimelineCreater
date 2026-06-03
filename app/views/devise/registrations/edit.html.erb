@@ -17,7 +17,14 @@
 
       <div class="form-full form-field">
         <%= f.label :email, "メールアドレス" %>
-        <%= f.email_field :email, autocomplete: "email" %>
+        <% if resource.provider.present? %>
+          <div class="form-control-static" style="padding: 0.5rem 0; font-size: var(--font-size-base); color: var(--color-ink-light);">
+            <%= resource.email %>
+            <span style="font-size: var(--font-size-xs); color: var(--color-ink-light); margin-left: 0.5rem;">(Google連携アカウント)</span>
+          </div>
+        <% else %>
+          <%= f.email_field :email, autocomplete: "email" %>
+        <% end %>
       </div>
 
       <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
@@ -26,20 +33,22 @@
         </div>
       <% end %>
 
-      <div class="form-full form-field">
-        <%= f.label :password, "新しいパスワード (変更しない場合は空欄)" %>
-        <%= f.password_field :password, autocomplete: "new-password" %>
-      </div>
+      <% unless resource.provider.present? %>
+        <div class="form-full form-field">
+          <%= f.label :password, "新しいパスワード (変更しない場合は空欄)" %>
+          <%= f.password_field :password, autocomplete: "new-password" %>
+        </div>
 
-      <div class="form-full form-field">
-        <%= f.label :password_confirmation, "新しいパスワード確認" %>
-        <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-      </div>
+        <div class="form-full form-field">
+          <%= f.label :password_confirmation, "新しいパスワード確認" %>
+          <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+        </div>
 
-      <div class="form-full form-field">
-        <%= f.label :current_password, "現在のパスワード (パスワードを変更する場合のみ入力)" %>
-        <%= f.password_field :current_password, autocomplete: "new-password", value: "" %>
-      </div>
+        <div class="form-full form-field">
+          <%= f.label :current_password, "現在のパスワード (パスワードを変更する場合のみ入力)" %>
+          <%= f.password_field :current_password, autocomplete: "new-password", value: "" %>
+        </div>
+      <% end %>
 
       <div class="form-actions">
         <%= link_to "戻る", :back, class: "btn btn-secondary" %>
