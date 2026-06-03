@@ -2,7 +2,12 @@
   <% timelines.each do |timeline| %>
     <div class="timeline-list-item">
       <div>
-        <strong><%= link_to timeline.title, timeline_path(timeline) %></strong>
+        <strong>
+          <%= link_to timeline.title, timeline_path(timeline) %>
+          <% unless timeline.public? %>
+            <span style="font-size: var(--font-size-xs); font-weight: normal; background: var(--color-ink-muted); color: white; padding: 2px 6px; border-radius: var(--radius-sm); margin-left: var(--space-xs); vertical-align: middle;">非公開</span>
+          <% end %>
+        </strong>
         <div class="date-japanese">
           <% if show_owner %>
             作成者: <%= timeline.user.display_name %> /

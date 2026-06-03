@@ -1,6 +1,6 @@
 <% if @target_user.present? %>
-  <% content_for :title, "#{@target_user.display_name}さんの公開年表" %>
-  <% content_for :page_title, "#{@target_user.display_name}さんの公開年表" %>
+  <% content_for :title, @target_user.display_name %>
+  <% content_for :page_title, @target_user.display_name %>
 <% else %>
   <% content_for :title, "公開年表" %>
   <% content_for :page_title, "公開年表" %>
@@ -11,15 +11,14 @@
   <ul class="breadcrumbs">
     <li><%= link_to "ホーム", root_path %></li>
     <% if @target_user.present? %>
-      <li><%= link_to "公開年表", public_index_timelines_path %></li>
-      <li><%= @target_user.display_name %>さん</li>
+      <li><%= @target_user.display_name %></li>
     <% else %>
       <li>公開年表</li>
     <% end %>
   </ul>
 
   <% if @target_user.present? %>
-    <h2 class="section-title"><%= @target_user.display_name %>さんの公開年表</h2>
+    <h2 class="section-title"><%= @target_user.display_name %></h2>
   <% else %>
     <h2 class="section-title">公開年表</h2>
   <% end %>

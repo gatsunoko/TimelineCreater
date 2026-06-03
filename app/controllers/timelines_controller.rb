@@ -19,7 +19,11 @@ class TimelinesController < ApplicationController
   def public_index
     if params[:user_id].present?
       @target_user = User.find(params[:user_id])
-      @public_timelines = Timeline.published.where(user_id: @target_user.id).order(updated_at: :desc)
+      if user_signed_in? && current_user.id == @target_user.id
+        @public_timelines = @target_user.timelines.order(updated_at: :desc)
+      else
+        @public_timelines = Timeline.published.where(user_id: @target_user.id).order(updated_at: :desc)
+      end
     else
       if user_signed_in?
         @public_timelines = Timeline.published.where.not(user_id: current_user.id).order(updated_at: :desc)
@@ -110,7 +114,9 @@ class TimelinesController < ApplicationController
   private
 
   def set_visible_timeline
-    @timeline = Timeline.find(params[:id])
+    @timeline = Timeline.find_by(id: params[:id])
+    return redirect_to(timelines_path, alert: "年表が見つかりません。") unless @timeline
+
     return if @timeline.visible_to?(current_user)
 
     if user_signed_in?
@@ -121,7 +127,10 @@ class TimelinesController < ApplicationController
   end
 
   def set_owned_timeline
-    @timeline = current_user.timelines.find(params[:id])
+    @timeline = current_user.timelines.find_by(id: params[:id])
+    return if @timeline
+
+    redirect_to timelines_path, alert: "年表が見つからないか、編集する権限がありません。"
   end
 
   def set_owned_timeline_for_destroy

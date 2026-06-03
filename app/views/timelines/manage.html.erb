@@ -5,6 +5,7 @@
 <section class="section" id="timeline-section">
   <ul class="breadcrumbs">
     <li><%= link_to "ホーム", root_path %></li>
+    <li><%= link_to @timeline.user.display_name, public_index_timelines_path(user_id: @timeline.user_id) %></li>
     <li><%= link_to @timeline.title, timeline_path(@timeline) %></li>
     <li>管理・編集</li>
   </ul>
@@ -58,7 +59,7 @@
           <tr>
             <td class="col-date">
               <div class="date-western"><%= age_display(@timeline, event, @display_mode) %></div>
-              <% if @display_mode == "date" && event.japanese_display.present? %>
+              <% if event.japanese_display.present? %>
                 <div class="date-japanese"><%= event.japanese_display %></div>
               <% else %>
                 <div class="date-japanese"><%= event.western_display %></div>

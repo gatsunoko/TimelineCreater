@@ -410,8 +410,8 @@ body::before {
 .note-text {
   display: block;
   margin-top: 0;
-  font-size: var(--font-size-xs);
-  color: var(--color-ink-muted);
+  font-size: var(--font-size-base);
+  color: var(--color-ink-light);
   line-height: 1.5;
   max-height: 0;
   overflow: hidden;

@@ -230,4 +230,16 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   syncBirthWesternToJapanese();
+
+  const timelineForm = document.getElementById("timeline-form");
+  if (timelineForm) {
+    timelineForm.addEventListener("keydown", (event) => {
+      if (event.key === "Enter") {
+        const target = event.target;
+        if (target.tagName !== "TEXTAREA" && target.type !== "submit" && target.tagName !== "BUTTON") {
+          event.preventDefault();
+        }
+      }
+    });
+  }
 });

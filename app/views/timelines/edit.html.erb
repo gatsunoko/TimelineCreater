@@ -4,6 +4,7 @@
 <section class="section">
   <ul class="breadcrumbs">
     <li><%= link_to "ホーム", root_path %></li>
+    <li><%= link_to @timeline.user.display_name, public_index_timelines_path(user_id: @timeline.user_id) %></li>
     <li><%= link_to @timeline.title, timeline_path(@timeline) %></li>
     <li><%= link_to "管理・編集", manage_timeline_path(@timeline) %></li>
     <li>設定</li>
