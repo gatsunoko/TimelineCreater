@@ -31,22 +31,29 @@
     <%= link_to "出来事登録", new_timeline_timeline_event_path(@timeline), class: "btn btn-primary" %>
   </div>
 
-  <% if @timeline.birth_year.present? %>
-    <div id="display-mode-container" style="display: flex; align-items: center; gap: var(--space-sm); margin-bottom: var(--space-md); background: rgba(139, 69, 19, 0.03); padding: 8px 12px; border-radius: var(--radius-md); border: 1px solid var(--color-border-light); flex-wrap: wrap;">
-      <span style="font-size: var(--font-size-sm); font-weight: bold; color: var(--color-ink-light);">表示切り替え</span>
+  <div id="display-mode-container" style="display: flex; align-items: center; gap: var(--space-sm); margin-bottom: var(--space-md); background: rgba(139, 69, 19, 0.03); padding: 8px 12px; border-radius: var(--radius-md); border: 1px solid var(--color-border-light); flex-wrap: wrap;">
+    <span style="font-size: var(--font-size-sm); font-weight: bold; color: var(--color-ink-light);">表示切り替え</span>
+    <% if @timeline.birth_year.present? %>
       <div class="btn-group">
-        <%= link_to "日付表示", manage_timeline_path(@timeline, q: @query, mode: "date"), class: mode_button_class(@display_mode, "date") %>
-        <%= link_to "数え年", manage_timeline_path(@timeline, q: @query, mode: "age-count"), class: mode_button_class(@display_mode, "age-count") %>
-        <%= link_to "満年齢", manage_timeline_path(@timeline, q: @query, mode: "age-full"), class: mode_button_class(@display_mode, "age-full") %>
+        <%= link_to "日付表示", manage_timeline_path(@timeline, q: @query, mode: "date", swap: params[:swap]), class: mode_button_class(@display_mode, "date") %>
+        <%= link_to "数え年", manage_timeline_path(@timeline, q: @query, mode: "age-count", swap: params[:swap]), class: mode_button_class(@display_mode, "age-count") %>
+        <%= link_to "満年齢", manage_timeline_path(@timeline, q: @query, mode: "age-full", swap: params[:swap]), class: mode_button_class(@display_mode, "age-full") %>
       </div>
-    </div>
-  <% end %>
+    <% end %>
+
+    <% next_swap = params[:swap] == "true" ? nil : "true" %>
+    <% swap_active = params[:swap] == "true" %>
+    <%= link_to "西暦和暦入替", manage_timeline_path(@timeline, q: @query, mode: @display_mode, swap: next_swap),
+                class: "btn btn-sm #{swap_active ? 'btn-primary' : 'btn-secondary'}",
+                style: "margin-left: auto;" %>
+  </div>
 
   <%= form_with url: manage_timeline_path(@timeline), method: :get, class: "search-bar" do |form| %>
     <%= hidden_field_tag :mode, @display_mode %>
+    <%= hidden_field_tag :swap, params[:swap] if params[:swap].present? %>
     <%= form.text_field :q, value: @query, placeholder: "事項・備考・元号で検索…" %>
     <%= form.submit "検索", class: "btn btn-secondary" %>
-    <%= link_to "クリア", manage_timeline_path(@timeline, mode: @display_mode), class: "btn btn-secondary" %>
+    <%= link_to "クリア", manage_timeline_path(@timeline, mode: @display_mode, swap: params[:swap]), class: "btn btn-secondary" %>
   <% end %>
 
   <div class="table-wrapper">
@@ -62,12 +69,16 @@
         <% @events.each do |event| %>
           <tr>
             <td class="col-date">
-              <div class="date-western"><%= age_display(@timeline, event, @display_mode) %></div>
-              <% if event.japanese_display.present? %>
-                <div class="date-japanese"><%= event.japanese_display %></div>
-              <% else %>
-                <div class="date-japanese"><%= event.western_display %></div>
-              <% end %>
+              <%
+                if @display_mode != "date" && @timeline.birth_year.present?
+                  top_val = age_display(@timeline, event, @display_mode)
+                else
+                  top_val = params[:swap] == "true" ? (event.japanese_display.presence || event.western_display) : event.western_display
+                end
+                bottom_val = params[:swap] == "true" ? event.western_display : (event.japanese_display.presence || event.western_display)
+              %>
+              <div class="date-western"><%= top_val %></div>
+              <div class="date-japanese"><%= bottom_val %></div>
             </td>
             <td class="col-event">
               <%= event.event %>

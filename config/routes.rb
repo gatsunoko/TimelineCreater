@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   end
 
   devise_scope :user do
-    unauthenticated { root "devise/sessions#new" }
+    unauthenticated { root "timelines#public_index" }
   end
 
   resources :timelines do
