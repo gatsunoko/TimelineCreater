@@ -95,6 +95,7 @@ class TimelinesController < ApplicationController
         if params[:overwrite_metadata] == "true"
           @timeline.update!(
             title: payload["title"].presence || @timeline.title,
+            description: payload["description"].presence || @timeline.description,
             birth_year: payload.dig("birth", "year"),
             birth_month: payload.dig("birth", "month"),
             birth_day: payload.dig("birth", "day")
@@ -138,7 +139,7 @@ class TimelinesController < ApplicationController
   end
 
   def timeline_params
-    params.require(:timeline).permit(:title, :birth_year, :birth_month, :birth_day, :public)
+    params.require(:timeline).permit(:title, :description, :birth_year, :birth_month, :birth_day, :public)
   end
 
   def event_attributes_from_json(item)

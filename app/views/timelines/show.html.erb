@@ -20,6 +20,10 @@
     <% end %>
   </h2>
 
+  <% if @timeline.description.present? %>
+    <div class="timeline-description" style="margin-bottom: var(--space-md); padding: var(--space-sm) var(--space-md); background: rgba(139, 69, 19, 0.02); border-left: 3px solid var(--color-border); color: var(--color-ink-light); line-height: 1.6; font-size: var(--font-size-base); white-space: pre-wrap; border-radius: 0 var(--radius-sm) var(--radius-sm) 0;"><%= @timeline.description %></div>
+  <% end %>
+
   <% if @timeline.birth_year.present? %>
     <div id="display-mode-container" style="display: flex; align-items: center; gap: var(--space-sm); margin-bottom: var(--space-md); background: rgba(139, 69, 19, 0.03); padding: 8px 12px; border-radius: var(--radius-md); border: 1px solid var(--color-border-light); flex-wrap: wrap;">
       <span style="font-size: var(--font-size-sm); font-weight: bold; color: var(--color-ink-light);">表示切り替え</span>

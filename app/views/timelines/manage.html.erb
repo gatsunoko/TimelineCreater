@@ -23,6 +23,10 @@
     </div>
   </h2>
 
+  <% if @timeline.description.present? %>
+    <div class="timeline-description" style="margin-bottom: var(--space-md); padding: var(--space-sm) var(--space-md); background: rgba(139, 69, 19, 0.02); border-left: 3px solid var(--color-border); color: var(--color-ink-light); line-height: 1.6; font-size: var(--font-size-base); white-space: pre-wrap; border-radius: 0 var(--radius-sm) var(--radius-sm) 0;"><%= @timeline.description %></div>
+  <% end %>
+
   <div class="toolbar" style="margin-bottom: var(--space-lg); justify-content: flex-start;">
     <%= link_to "出来事登録", new_timeline_timeline_event_path(@timeline), class: "btn btn-primary" %>
   </div>

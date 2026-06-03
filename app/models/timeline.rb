@@ -19,6 +19,7 @@ class Timeline < ApplicationRecord
   def to_export_hash
     {
       title: title,
+      description: description,
       birth: birth,
       items: timeline_events.ordered.map(&:to_export_hash)
     }

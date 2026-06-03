@@ -12,6 +12,13 @@
     </div>
 
     <div class="form-full">
+      <div class="form-field">
+        <%= form.label :description, "説明（備考）" %>
+        <%= form.text_area :description, placeholder: "この年表の説明や備考を入力…", rows: 4 %>
+      </div>
+    </div>
+
+    <div class="form-full">
       <div class="form-group-title">公開設定</div>
       <div class="visibility-options">
         <label class="visibility-option">
