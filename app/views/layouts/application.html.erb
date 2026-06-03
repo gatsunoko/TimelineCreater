@@ -15,7 +15,9 @@
 
   <body>
     <nav class="app-nav">
-      <%= link_to "年表作成サイト", root_path %>
+      <%= link_to root_path, class: "app-logo-link" do %>
+        <%= image_tag "/logo.png", alt: "時の栞 - 年表作成サイト", class: "app-logo" %>
+      <% end %>
       <div class="nav-actions">
         <% if user_signed_in? %>
           <%= link_to current_user.name, mine_timelines_path, style: "font-weight: bold; text-decoration: none;" %>

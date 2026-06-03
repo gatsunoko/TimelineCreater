@@ -1060,6 +1060,18 @@ body::before {
 }
 
 /* --- Rails dynamic app additions --- */
+.app-logo-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.app-logo {
+  height: 46px;
+  width: auto;
+  display: block;
+}
+
 .app-nav {
   display: flex;
   justify-content: space-between;
